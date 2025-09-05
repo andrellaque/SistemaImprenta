@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="background" prefHeight="290.0" prefWidth="280.0" styleClass="background" stylesheets="@../views/css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pe.edu.utp.sistemaimprenta.controller.RegisterController">
+
+    <children>
+
+        <TextField fx:id="txtUsername" layoutY="20.0" prefHeight="30.0" prefWidth="280.0" promptText="Usuario" styleClass="input-text" />
+
+        <TextField fx:id="txtEmail" layoutY="70.0" prefHeight="30.0" prefWidth="280.0" promptText="Correo Electronico" styleClass="input-text" />
+
+        <PasswordField fx:id="txtPassword" layoutY="120.0" prefHeight="30.0" prefWidth="280.0" promptText="Contraseña" styleClass="input-text" />
+
+        <PasswordField fx:id="txtConfirmPassword" layoutY="170.0" prefHeight="30.0" prefWidth="280.0" promptText="Confirmar contraseña" styleClass="input-text" />
+
+        <Label fx:id="lblError" alignment="CENTER" contentDisplay="TOP" layoutY="210.0" prefHeight="26.0" prefWidth="280.0" styleClass="label-neutral" />
+
+        <Button fx:id="btnEnter" alignment="CENTER" layoutY="245.0" prefHeight="30.0" prefWidth="280.0" styleClass="menu-button" text="Registrar">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </Button>
+
+    </children>
+</AnchorPane>

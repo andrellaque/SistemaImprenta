@@ -1,0 +1,46 @@
+.background {
+    -fx-background-color: #313F51;
+}
+
+.menu-button {
+    -fx-background-color: #24766a;
+    -fx-text-fill: white;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 16px;
+    -fx-font-weight: bold; 
+    -fx-background-radius: 5;
+}
+
+.menu-button-selected {
+    -fx-background-color: #384651;
+    -fx-text-fill: white;
+}
+
+.input-text {
+    -fx-font-family: "Cambria";
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 3;
+    -fx-prompt-text-fill: #AAAAAA;
+}
+
+.label-error {
+    -fx-text-fill: #ff0404;
+    -fx-font-family: "Segoe UI";
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+.label-success {
+    -fx-text-fill: #3bc46b;
+    -fx-font-family: "Segoe UI";
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+.label-neutral {
+    -fx-text-fill: transparent;
+    -fx-font-size: 14px;
+}
+
+

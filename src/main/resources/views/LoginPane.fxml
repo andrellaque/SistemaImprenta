@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="backgroundPanel" prefHeight="290.0" prefWidth="280.0" styleClass="background" stylesheets="@../views/css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pe.edu.utp.sistemaimprenta.controller.LoginController">
+
+    <children>
+
+        <TextField fx:id="txtUsername" layoutY="98.0" prefHeight="30.0" prefWidth="280.0" promptText="Usuario" styleClass="input-text" />
+
+        <PasswordField fx:id="txtPassword" layoutY="145.0" prefHeight="30.0" prefWidth="280.0" promptText="Contraseña" styleClass="input-text" />
+
+        <Hyperlink fx:id="lnkForgotPassword" layoutY="180.0" styleClass="link-forgot" text="¿Olvidaste tu contraseña?" />
+
+        <ImageView fx:id="imgUsername" disable="true" fitHeight="24.0" fitWidth="22.0" layoutX="255.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@/images/User.png" />
+            </image>
+        </ImageView>
+
+        <ImageView fx:id="imgPassword" disable="true" fitHeight="24.0" fitWidth="22.0" layoutX="255.0" layoutY="149.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@/images/EyePassword.png" />
+            </image>
+        </ImageView>
+
+        <Button fx:id="btnEnter" alignment="CENTER" layoutY="245.0" prefHeight="30.0" prefWidth="280.0" styleClass="menu-button" text="INGRESAR" textAlignment="JUSTIFY">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </Button>
+
+        <Label fx:id="lblError" alignment="CENTER" contentDisplay="TOP" layoutY="211.0" prefHeight="26.0" prefWidth="280.0" styleClass="label-neutral" />
+
+        <Label layoutX="8.0" layoutY="213.0" prefHeight="22.0" prefWidth="28.0" />
+
+        <ImageView fx:id="imgLogin" fitHeight="92.0" fitWidth="117.0" layoutX="82.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@/images/logoImp.png" />
+            </image>
+        </ImageView>
+
+    </children>
+</AnchorPane>
