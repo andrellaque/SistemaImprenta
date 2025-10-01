@@ -3,8 +3,10 @@ package pe.edu.utp.sistemaimprenta.util;
 public enum FxmlPath {
     AUTH("/views/AuthView.fxml"),
     LOGIN_PANE("/views/LoginPane.fxml"),
-    REGISTER_PANE("/views/RegisterPane.fxml");
-  
+    REGISTER_PANE("/views/RegisterPane.fxml"),
+    DASHBOARD("/views/DashboardView.fxml"),
+    SIDEBAR_ITEM("/views/SidebarItem.fxml");
+    
     private final String path;
 
     private FxmlPath(String path) {

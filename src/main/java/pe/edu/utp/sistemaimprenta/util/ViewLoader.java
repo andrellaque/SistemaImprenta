@@ -7,6 +7,9 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
+import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
+import pe.edu.utp.sistemaimprenta.controller.SidebarItemController;
 
 public class ViewLoader {
 
@@ -59,5 +62,25 @@ public class ViewLoader {
             return null;
         }
     }
- 
+    
+    public static record SidebarItemResult(HBox node, SidebarItemController controller) {}
+
+    public static SidebarItemResult loadSidebarItem(String text, String iconPath){
+        try {
+            FXMLLoader loader = createFXMLLoader(FxmlPath.SIDEBAR_ITEM.getPath());
+            HBox sidebarItem = loader.load();
+            SidebarItemController controller = loader.getController();
+            
+            controller.setLabelText(text);
+            controller.setIconImage(new Image(ViewLoader.class.getResourceAsStream(iconPath)));
+            
+            return new SidebarItemResult(sidebarItem, controller);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println(e.getLocalizedMessage());
+            e.printStackTrace();  
+            return null;
+        }
+
+    }
 }

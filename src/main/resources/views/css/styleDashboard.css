@@ -1,0 +1,36 @@
+.top-bar {
+    -fx-background-color: #1F1F1F; 
+}
+
+.side-bar {
+    -fx-background-color: #1F1F1F; 
+}
+
+.main-panel {
+    -fx-background-color: #2b2b2b;  
+}
+
+/* Estilo del texto en los ítems del menú */
+.menu-label { 
+    -fx-text-fill: #3C3C3C;  
+}
+
+/* Estilo al hacer hover sobre un ítem del menú */
+.menu-item:hover {
+    -fx-background-color: #34495E;  
+}
+
+/* Estilo para el ítem seleccionado */
+.menu-item.selected {
+    -fx-background-color: #34495E;  
+}
+
+/* Estilo del texto al hacer hover sobre un ítem */
+.menu-item:hover .menu-label {
+    -fx-text-fill: #f8fafc;  
+}
+
+/* Estilo del texto cuando el ítem está seleccionado */
+.menu-item.selected .menu-label {
+    -fx-text-fill: #f8fafc;  
+}
