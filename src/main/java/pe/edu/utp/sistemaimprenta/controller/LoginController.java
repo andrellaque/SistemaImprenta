@@ -9,10 +9,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import pe.edu.utp.sistemaimprenta.dao.UserDao;
 import pe.edu.utp.sistemaimprenta.model.User;
 import pe.edu.utp.sistemaimprenta.model.UserType;
 import pe.edu.utp.sistemaimprenta.util.FxmlPath;
 import pe.edu.utp.sistemaimprenta.util.Message;
+import pe.edu.utp.sistemaimprenta.util.Notification;
+import pe.edu.utp.sistemaimprenta.util.NotificationType;
 import pe.edu.utp.sistemaimprenta.util.Validator;
 import pe.edu.utp.sistemaimprenta.util.ViewLoader;
 
@@ -29,6 +32,12 @@ public class LoginController implements Initializable {
 
     @FXML
     private TextField txtUsername;
+    
+    private UserDao userDao;
+
+    public LoginController() {
+        userDao = new UserDao();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -42,21 +51,21 @@ public class LoginController implements Initializable {
         String error = Validator.validateInputFieldsLogin(u, p);
         if (error != null) {
             Message.showMessage(lblError, error, "red");
+            Notification.showNotification("Login", "ERROR!", 4, NotificationType.ERROR);
             return;
         }
+            
+
         
-        User user = new User(1, "JavierB", "11111111", "JavierB", 
-                "asdsa",UserType.VENDEDOR);
-        openDashboard(user);
-        closeCurrentStage();
-
-        boolean inicioExitoso = true;
-
-        if (inicioExitoso) {
-            Message.showMessage(lblError, "¡Inicio de sesiòn exitoso!", "green");
+        if (userDao.validateLogin(u, p)) {
+            User user = userDao.getUser();
+            Message.showMessage(lblError,"Inicio de sesión exitoso", "green");
+            Notification.showNotification("Login", "Ingreso exitoso", 4, NotificationType.SUCCESS);
+            openDashboard(user);
             closeCurrentStage();
-        } else {
+        }else{
             Message.showMessage(lblError, "Credenciales incorrectas", "red");
+            Notification.showNotification("Login", "ERROR!", 4, NotificationType.ERROR);
         }
     }
     

@@ -1,18 +1,32 @@
 package pe.edu.utp.sistemaimprenta.model;
+import lombok.*;
 
+/*@Data
+@NoArgsConstructor
+@AllArgsConstructor*/
 public class User {
     private int id;
-    private String name;
     private String username;
     private String password;
+    private String email;
     private UserType type;
 
-    public User(int id, String name, String DNI, String username, String password, UserType type) {
-        this.id = id;
-        this.name = name;
+    public User(String username, String password, String email,UserType type) {
         this.username = username;
         this.password = password;
+        this.email = email;
         this.type = type;
+    }
+
+    public User(int id, String username, String password, String email, UserType type) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.type = type;
+    }
+
+    public User() {
     }
 
     public int getId() {
@@ -21,14 +35,6 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getUsername() {
@@ -47,6 +53,14 @@ public class User {
         this.password = password;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public UserType getType() {
         return type;
     }
@@ -54,4 +68,7 @@ public class User {
     public void setType(UserType type) {
         this.type = type;
     }
+   
+    
 }
+

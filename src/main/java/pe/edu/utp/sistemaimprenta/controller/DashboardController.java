@@ -1,8 +1,6 @@
 package pe.edu.utp.sistemaimprenta.controller;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
@@ -82,6 +80,7 @@ public class DashboardController implements Initializable {
         createSidebarItem("Reportes", "", "/views/Peliculas.fxml");
         createSidebarItem("Produccion", "", "/views/Peliculas.fxml");
         createSidebarItem("Auditoria", "", "/views/Peliculas.fxml");
+        createSidebarItem("Configuracion", "", "/views/Peliculas.fxml");
     }
     
     private void setImage(ImageView imageView, String resourcePath) {
