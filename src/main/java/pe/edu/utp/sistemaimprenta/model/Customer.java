@@ -3,21 +3,34 @@ package pe.edu.utp.sistemaimprenta.model;
 public class Customer {
 
     private int id;
-    private final String DNI;
+    private  String dni;
     private String name;
+    private String lastName;
     private String telephoneNumber;
     private String email;
     private String address;
 
-    public Customer(int id, String DNI, String name, String telephoneNumber, String email, String address) {
+    public Customer(int id, String DNI, String name, String lastName, String telephoneNumber, String email, String address) {
         this.id = id;
-        this.DNI = DNI;
+        this.dni = DNI;
         this.name = name;
+        this.lastName = lastName;
         this.telephoneNumber = telephoneNumber;
         this.email = email;
         this.address = address;
     }
 
+    public Customer(String DNI, String name, String lastName, String telephoneNumber, String email, String address) {
+        this.dni = DNI;
+        this.name = name;
+        this.lastName = lastName;
+        this.telephoneNumber = telephoneNumber;
+        this.email = email;
+        this.address = address;
+    }
+
+    public Customer() {
+    }
 
     public int getId() {
         return id;
@@ -27,8 +40,12 @@ public class Customer {
         this.id = id;
     }
 
-    public String getDNI() {
-        return DNI;
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String DNI) {
+        this.dni = DNI;
     }
 
     public String getName() {
@@ -37,6 +54,14 @@ public class Customer {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getTelephoneNumber() {
@@ -62,16 +87,7 @@ public class Customer {
     public void setAddress(String address) {
         this.address = address;
     }
-
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "id=" + id +
-                ", DNI='" + DNI + '\'' +
-                ", name='" + name + '\'' +
-                ", telephoneNumber='" + telephoneNumber + '\'' +
-                ", email='" + email + '\'' +
-                ", address='" + address + '\'' +
-                '}';
-    }
+    
+    
+    
 }

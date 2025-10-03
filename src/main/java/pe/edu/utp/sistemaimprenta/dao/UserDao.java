@@ -57,7 +57,7 @@ public class UserDao implements IGenericCRUDDao<User> {
 
     public boolean validateLogin(String username, String password) {
 
-        String query = "SELECT hash_contrasena FROM Usuario WHERE nombre = ?";
+        String query = "SELECT id_usuario, hash_contrasena FROM Usuario WHERE nombre = ?";
 
         try (PreparedStatement stmt = getConnection().prepareStatement(query)) {
             stmt.setString(1, username);
@@ -133,7 +133,7 @@ public class UserDao implements IGenericCRUDDao<User> {
     @Override
     public List<User> findAll() {
         List<User> lista = new ArrayList<>();
-        String sql = "SELECT id_usuario, nombre, correo_electronico, hash_contrasena, id_tipo_usuario FROM Usuario";
+        String sql = "SELECT id_usuario, nombre, hash_contrasena, correo_electronico, id_tipo_usuario FROM Usuario";
 
         try (PreparedStatement stm = getConnection().prepareStatement(sql); 
                 ResultSet rs = stm.executeQuery()) {
@@ -162,7 +162,7 @@ public class UserDao implements IGenericCRUDDao<User> {
 
     @Override
     public boolean uptade(User entity) {
-        String sql = "UPDATE Usuario SET nombre=?, correo_electronico=?, hash_contrasena=?, id_tipo_usuario=? WHERE id_usuario=?";
+        String sql = "UPDATE Usuario SET nombre=?, hash_contrasena=?, correo_electronico=?, id_tipo_usuario=? WHERE id_usuario=?";
       
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
             ps.setString(1, entity.getUsername());

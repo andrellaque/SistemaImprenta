@@ -55,13 +55,13 @@ public class DashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setImage(imgLogo, "/images/logoImp.png");
+        setImage(imgLogo, "/images/logo2.png");
         setImage(imgUser, "/images/DefaultProfileUser.png");
         itemLogOut.setOnAction(this::logOut);
     }
     
     private void crearItemsVendedor(){
-        createSidebarItem("Clientes", "", "/views/Clientes.fxml");
+        createSidebarItem("Clientes", "/images/EyePassword", "/views/CustomersPane.fxml");
         createSidebarItem("Pedidos", "", "/views/Peliculas.fxml");
         createSidebarItem("Cotizaciones", "", "/views/Peliculas.fxml");
         createSidebarItem("Pagos", "", "/views/Peliculas.fxml");
@@ -75,7 +75,7 @@ public class DashboardController implements Initializable {
     }
     
     private void crearItemsAdministrador(){
-        createSidebarItem("Clientes", "", "/views/Clientes.fxml");
+        createSidebarItem("Clientes", "", "/views/CustomersPane.fxml");
         createSidebarItem("Personal", "", "/views/Peliculas.fxml");
         createSidebarItem("Reportes", "", "/views/Peliculas.fxml");
         createSidebarItem("Produccion", "", "/views/Peliculas.fxml");
@@ -119,7 +119,7 @@ public class DashboardController implements Initializable {
             }
             sidebarItem.getStyleClass().add("selected");
             selectedItem = sidebarItem;
-            // ViewLoader.changeMainPanel(mainPanel, fxmlToLoad);
+            ViewLoader.changeMainPanel(mainPanel, fxmlToLoad);
         });
 
         sidebarItem.getStyleClass().add("menu-item");

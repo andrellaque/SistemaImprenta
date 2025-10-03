@@ -44,7 +44,7 @@
 
         <ImageView fx:id="imgLogin" fitHeight="92.0" fitWidth="117.0" layoutX="82.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@/images/logoImp.png" />
+                <Image url="@/images/logo2.png" />
             </image>
         </ImageView>
 

@@ -54,8 +54,14 @@ public class LoginController implements Initializable {
             Notification.showNotification("Login", "ERROR!", 4, NotificationType.ERROR);
             return;
         }
+         /* 
+        User user = new User("Javier","ads","dsa",UserType.ADMINISTRADOR);
             
-
+            Notification.showNotification("Login", "Ingreso exitoso", 4, NotificationType.SUCCESS);
+            openDashboard(user);
+            closeCurrentStage();
+        
+        */
         
         if (userDao.validateLogin(u, p)) {
             User user = userDao.getUser();

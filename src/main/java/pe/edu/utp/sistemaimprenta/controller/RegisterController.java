@@ -50,7 +50,6 @@ public class RegisterController implements Initializable {
         btnEnter.setOnAction(e -> handleRegister());
     }
     
-    
     private void handleRegister() {
         String username = txtUsername.getText();
         String email = txtEmail.getText();
@@ -72,7 +71,7 @@ public class RegisterController implements Initializable {
         } else if (userDao.existsEmail(email)) {
             Message.showMessage(lblError, "Correo electronico en uso", "red");
             Notification.showNotification("REGISTER", "ERROR!", 4, NotificationType.ERROR);
-        } else if (userDao.save(new User(username, email, EncryptPassword.encrypt(password), defaultType))) {
+        } else if (userDao.save(new User(username, EncryptPassword.encrypt(password),email , defaultType))) {
             Message.showMessage(lblError, "Registro exitoso", "green");
             Notification.showNotification("Register", "Registro exitoso", 4, NotificationType.SUCCESS);
             clear();

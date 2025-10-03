@@ -1,0 +1,121 @@
+/* Panel contenedor tipo tarjeta */
+.panel {
+    -fx-background-color: #ffffff;          /* Fondo blanco */
+    -fx-background-radius: 12px;            /* Bordes redondeados */
+    -fx-border-radius: 12px;                /* Bordes redondeados */
+    -fx-border-color: #b2b2b2;              /* Borde gris más notorio */
+    -fx-border-width: 1.2;                  /* Grosor del borde un poco mayor */
+    -fx-padding: 15;                        /* Espaciado interno */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 10, 0, 0, 3); /* Sombra un poco más marcada */
+}
+
+/* ===== Estilo general ===== */
+.root {
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: #e6e9f0; /* Fondo un poco más notorio que #f5f6fa */
+}
+
+
+/* ===== Etiquetas ===== */
+.label {
+    -fx-text-fill: #2f3640;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.label.title {
+    -fx-text-fill: linear-gradient(to bottom, #6e6e6e, #2f2f2f);
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+}
+
+/* ===== Campos de texto ===== */
+.text-field, .text-area {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dcdde1;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 5px;
+    -fx-font-size: 13px;
+}
+
+.text-field:focused, .text-area:focused {
+    -fx-border-color: #40739e;
+    -fx-effect: dropshadow(gaussian, rgba(64,115,158,0.3), 6, 0, 0, 2);
+}
+
+/* ===== Botones ===== */
+.button {
+    -fx-font-size: 15px;
+    -fx-background-color: linear-gradient(to right, #40739e, #273c75);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+    -fx-padding: 6px 12px;
+    -fx-alignment: center;
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to right, #487eb0, #2f3640);
+}
+
+/* Botón eliminar con color especial */
+.button.delete {
+    -fx-background-color: linear-gradient(to right, #e84118, #c23616);
+}
+.button.delete:hover {
+    -fx-background-color: linear-gradient(to right, #ff6b6b, #c23616);
+}
+
+.button.clear {
+    -fx-background-color: linear-gradient(to right, #bdc3c7, #95a5a6);
+    -fx-text-fill: #2c3e50;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+    -fx-padding: 6px 12px;
+}
+
+.button.clear:hover {
+    -fx-background-color: linear-gradient(to right, #dcdde1, #7f8c8d);
+}
+
+/* ===== Tabla ===== */
+.table-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dcdde1;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-table-cell-border-color: transparent;
+    -fx-padding: 5px;
+}
+
+/* Cabecera */
+.table-view .column-header-background {
+    -fx-background-color: linear-gradient(to right, #40739e, #273c75);
+    -fx-background-radius: 6px 6px 0 0;
+}
+
+.table-view .column-header, 
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER;
+}
+
+/* Filas */
+.table-row-cell {
+    -fx-background-color: #ffffff;
+    -fx-border-color: transparent transparent #ecf0f1 transparent;
+    -fx-font-size: 13px;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #f8f9fa;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #dcdde1;
+    -fx-text-fill: black;
+}
