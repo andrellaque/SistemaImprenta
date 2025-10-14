@@ -6,7 +6,7 @@ import pe.edu.utp.sistemaimprenta.util.FxmlPath;
 import pe.edu.utp.sistemaimprenta.util.ViewLoader;
 
 
-public class SistemaImprenta extends Application {
+public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {

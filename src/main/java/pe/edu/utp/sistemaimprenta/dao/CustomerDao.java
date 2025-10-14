@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import pe.edu.utp.sistemaimprenta.db.DBConnection;
 
-public class CustomerDao implements IGenericCRUDDao<Customer> {
+public class CustomerDao implements CRUDDao<Customer> {
 
     private Connection getConnection() throws SQLException {
         return DBConnection.getInstance().getConnection();
@@ -47,6 +47,7 @@ public class CustomerDao implements IGenericCRUDDao<Customer> {
                     c.setTelephoneNumber(rs.getString("telefono"));
                     c.setEmail(rs.getString("correo_electronico"));
                     c.setAddress(rs.getString("direccion"));
+                    c.setCreatedAt(rs.getTimestamp("fecha_registro").toLocalDateTime());
                     return c;
                 }
             }
@@ -101,6 +102,7 @@ public class CustomerDao implements IGenericCRUDDao<Customer> {
                 c.setTelephoneNumber(rs.getString("telefono"));
                 c.setEmail(rs.getString("correo_electronico"));
                 c.setAddress(rs.getString("direccion"));
+                c.setCreatedAt(rs.getTimestamp("fecha_registro").toLocalDateTime());
                 lista.add(c);
             }
         } catch (SQLException e) {

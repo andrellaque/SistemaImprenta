@@ -119,3 +119,10 @@
     -fx-background-color: #dcdde1;
     -fx-text-fill: black;
 }
+
+.panel2 {
+    -fx-background-color: #4682B4;  /* Azul marino */
+    -fx-padding: 20;
+    -fx-background-radius: 10;
+}
+

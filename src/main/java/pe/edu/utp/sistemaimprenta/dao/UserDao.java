@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import pe.edu.utp.sistemaimprenta.db.DBConnection;
@@ -11,7 +12,7 @@ import pe.edu.utp.sistemaimprenta.model.User;
 import pe.edu.utp.sistemaimprenta.model.UserType;
 import pe.edu.utp.sistemaimprenta.util.EncryptPassword;
 
-public class UserDao implements IGenericCRUDDao<User> {
+public class UserDao implements CRUDDao<User> {
 
     private User user;
 
@@ -91,7 +92,8 @@ public class UserDao implements IGenericCRUDDao<User> {
                     String hash = rs.getString("hash_contrasena");
                     String email = rs.getString("correo_electronico");
                     UserType type = UserType.fromId(rs.getInt("id_tipo_usuario"));
-                    return new User(id, username, hash, email, type);
+                    LocalDateTime createdAt= rs.getTimestamp("fecha_registro").toLocalDateTime();
+                    return new User(id, username, hash, email, type,createdAt);
                 }
             }
         } catch (SQLException e) {
@@ -133,7 +135,7 @@ public class UserDao implements IGenericCRUDDao<User> {
     @Override
     public List<User> findAll() {
         List<User> lista = new ArrayList<>();
-        String sql = "SELECT id_usuario, nombre, hash_contrasena, correo_electronico, id_tipo_usuario FROM Usuario";
+        String sql = "SELECT * FROM Usuario";
 
         try (PreparedStatement stm = getConnection().prepareStatement(sql); 
                 ResultSet rs = stm.executeQuery()) {
@@ -145,7 +147,7 @@ public class UserDao implements IGenericCRUDDao<User> {
                 u.setEmail(rs.getString("correo_electronico"));
                 u.setPassword(rs.getString("hash_contrasena"));
                 u.setType(UserType.fromId(rs.getInt("id_tipo_usuario")));
-
+                u.setCreatedAt(rs.getTimestamp("fecha_registro").toLocalDateTime());
                 lista.add(u);
             }
 

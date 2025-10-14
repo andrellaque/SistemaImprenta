@@ -61,7 +61,7 @@ public class DashboardController implements Initializable {
     }
     
     private void crearItemsVendedor(){
-        createSidebarItem("Clientes", "/images/EyePassword", "/views/CustomersPane.fxml");
+        createSidebarItem("Clientes", "/images/EyePassword", "/views/UsersPane.fxml");
         createSidebarItem("Pedidos", "", "/views/Peliculas.fxml");
         createSidebarItem("Cotizaciones", "", "/views/Peliculas.fxml");
         createSidebarItem("Pagos", "", "/views/Peliculas.fxml");
@@ -76,7 +76,7 @@ public class DashboardController implements Initializable {
     
     private void crearItemsAdministrador(){
         createSidebarItem("Clientes", "", "/views/CustomersPane.fxml");
-        createSidebarItem("Personal", "", "/views/Peliculas.fxml");
+        createSidebarItem("Personal", "", "/views/UsersPane.fxml");
         createSidebarItem("Reportes", "", "/views/Peliculas.fxml");
         createSidebarItem("Produccion", "", "/views/Peliculas.fxml");
         createSidebarItem("Auditoria", "", "/views/Peliculas.fxml");

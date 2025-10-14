@@ -1,16 +1,19 @@
 package pe.edu.utp.sistemaimprenta.controller;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import pe.edu.utp.sistemaimprenta.dao.CustomerDao;
 import pe.edu.utp.sistemaimprenta.model.Customer;
 import pe.edu.utp.sistemaimprenta.util.Notification;
@@ -31,7 +34,10 @@ public class CustomerController implements Initializable {
     private Button btnRegistrar;
 
     @FXML
-    private TableColumn<Customer, String> colApellidos;
+    private ImageView btnBuscar;
+
+    @FXML
+    private TableColumn<Customer, String> colNombre;
 
     @FXML
     private TableColumn<Customer, String> colDireccion;
@@ -46,10 +52,16 @@ public class CustomerController implements Initializable {
     private TableColumn<Customer, Integer> colId;
 
     @FXML
-    private TableColumn<Customer, String> colNombres;
+    private TableColumn<Customer, String> colTelefono;
 
     @FXML
-    private TableColumn<Customer, String> colTelefono;
+    private TableColumn<Customer, String> colFecha;
+
+    @FXML
+    private ComboBox<String> cmbFiltro;
+
+    @FXML
+    private Label lblFiltro;
 
     @FXML
     private TableView<Customer> tablaDatos;
@@ -84,68 +96,85 @@ public class CustomerController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        btnRegistrar.setOnAction(e->registrar());
-        btnActualizar.setOnAction(e->actualizar());
-        btnEliminar.setOnAction(e->eliminar());
-        btnLimpiar.setOnAction(e->limpiarCampos());
+        btnRegistrar.setOnAction(e -> registrar());
+        btnActualizar.setOnAction(e -> actualizar());
+        btnEliminar.setOnAction(e -> eliminar());
+        btnLimpiar.setOnAction(e -> limpiarCampos());
 
         listaClientes = FXCollections.observableArrayList(customerDao.findAll());
         tablaDatos.setItems(listaClientes);
 
         colId.setCellValueFactory(data -> new javafx.beans.property.SimpleIntegerProperty(data.getValue().getId()).asObject());
-        colNombres.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getLastName()));
-        colApellidos.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getName()));
+        colNombre.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getLastName() + " " + data.getValue().getName()));
         colEmail.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getEmail()));
         colTelefono.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getTelephoneNumber()));
         colDni.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getDni()));
         colDireccion.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getAddress()));
+        colFecha.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getCreatedAt().toString()));
+        
+        tablaDatos.getSelectionModel().selectedItemProperty()
+                .addListener((obs, oldSel, newSel) -> mostrarClienteSeleccionado(newSel));
 
-        // Evento para llenar campos al seleccionar fila
-        tablaDatos.getSelectionModel().selectedItemProperty().addListener((obs, oldSel, newSel) -> {
-        if (newSel != null) {
-            txtDni.setText(newSel.getDni());
-            txtApellidos.setText(newSel.getLastName());
-            txtNombres.setText(newSel.getName());
-            txtTelefono.setText(newSel.getTelephoneNumber());
-            txtEmail.setText(newSel.getEmail());
-            txtDireccion.setText(newSel.getAddress());
-        }
-    });
+        cmbFiltro.setItems(FXCollections.observableArrayList("DNI", "Nombre", "Apellido", "Email", "Teléfono"));
+        cmbFiltro.getSelectionModel().selectFirst();
+        lblFiltro.setText(cmbFiltro.getValue());
 
+        cmbFiltro.valueProperty().addListener((obs, oldVal, newVal) -> lblFiltro.setText(newVal));
+
+        btnBuscar.setOnMouseClicked(e -> buscarCliente());
 
     }
 
-    private void registrar() {
+    private void mostrarClienteSeleccionado(Customer c) {
+        if (c == null) {
+            return;
+        }
+        txtDni.setText(c.getDni());
+        txtApellidos.setText(c.getLastName());
+        txtNombres.setText(c.getName());
+        txtTelefono.setText(c.getTelephoneNumber());
+        txtEmail.setText(c.getEmail());
+        txtDireccion.setText(c.getAddress());
+    }
 
+    private void buscarCliente() {
+        String filtro = cmbFiltro.getValue();
+        String texto = txtBuscar.getText().trim().toLowerCase();
+
+        if (texto.isEmpty()) {
+            refrescarTabla(); 
+            return;
+        }
+
+        var filtrados = customerDao.findAll().stream().filter(c ->
+                switch (filtro){
+                case "DNI"-> c.getDni().toLowerCase().contains(texto);
+                case "Nombre"->  c.getName().toLowerCase().contains(texto);
+                case "Apellido"-> c.getLastName().toLowerCase().contains(texto);
+                case "Email"-> c.getEmail().toLowerCase().contains(texto);
+                case "Teléfono"-> c.getTelephoneNumber().toLowerCase().contains(texto);
+                default->  false;
+        }).toList();
+        
+        listaClientes.setAll(filtrados);
+    }
+
+    private void registrar() {
         Customer c = new Customer();
-        c.setDni(txtDni.getText());
-        c.setName(txtNombres.getText());
-        c.setLastName(txtNombres.getText());
-        c.setEmail(txtEmail.getText());
-        c.setTelephoneNumber(txtNombres.getText());
-        c.setAddress(txtDireccion.getText());
+        llenarDatosCliente(c);
         customerDao.save(c);
         refrescarTabla();
         limpiarCampos();
-
     }
 
     private void actualizar() {
         Customer seleccionado = tablaDatos.getSelectionModel().getSelectedItem();
         if (seleccionado != null) {
-
-            seleccionado.setName(txtNombres.getText());
-            seleccionado.setEmail(txtEmail.getText());
-            seleccionado.setLastName(txtApellidos.getText());
-            seleccionado.setDni(txtDni.getText());
-            seleccionado.setTelephoneNumber(txtTelefono.getText());
-            seleccionado.setAddress(txtDireccion.getText());
-            
+            llenarDatosCliente(seleccionado);
             customerDao.uptade(seleccionado);
             Notification.showNotification("REGISTRO CLIENTE", "Con exito", 4, NotificationType.SUCCESS);
             refrescarTabla();
             limpiarCampos();
-
         }
     }
 
@@ -155,21 +184,28 @@ public class CustomerController implements Initializable {
             customerDao.delete(seleccionado.getId());
             refrescarTabla();
             limpiarCampos();
-           
+
         }
     }
 
     private void refrescarTabla() {
         listaClientes.setAll(customerDao.findAll());
-        
+    }
+
+    private void llenarDatosCliente(Customer c) {
+        c.setDni(txtDni.getText());
+        c.setName(txtNombres.getText());
+        c.setLastName(txtApellidos.getText());
+        c.setEmail(txtEmail.getText());
+        c.setTelephoneNumber(txtTelefono.getText());
+        c.setAddress(txtDireccion.getText());
     }
 
     private void limpiarCampos() {
-        txtDni.clear();
-        txtNombres.clear();
-        txtApellidos.clear();
-        txtEmail.clear();
-        txtTelefono.clear();
-        txtDireccion.clear();
+        TextField[] fields = {txtDni, txtNombres, txtApellidos, txtEmail, txtTelefono, txtDireccion};
+        for (TextField f : fields) {
+            f.clear();
+        }
     }
+
 }

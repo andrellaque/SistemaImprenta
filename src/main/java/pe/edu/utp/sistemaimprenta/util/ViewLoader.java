@@ -44,6 +44,8 @@ public class ViewLoader {
             Parent root = loader.load();
             mainPanel.getChildren().setAll(root);
         } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage() + e.getLocalizedMessage());
             System.err.println("Error al cambiar el panel: " + fxmlPath + " " + e);
         }
     }
