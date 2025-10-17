@@ -1,38 +1,54 @@
+
 .background {
-    -fx-background-color: #313F51;
+    -fx-background-color: linear-gradient(to bottom, #0f172a, #1e293b); /* azul oscuro */
 }
 
 .menu-button {
-    -fx-background-color: #24766a;
-    -fx-text-fill: white;
+    -fx-background-color: #1e293b;
+    -fx-text-fill: #cbd5e1; 
     -fx-font-family: "Segoe UI";
     -fx-font-size: 16px;
-    -fx-font-weight: bold; 
-    -fx-background-radius: 5;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+.menu-button:hover {
+    -fx-background-color: #334155;
+    -fx-text-fill: #ffffff;
 }
 
 .menu-button-selected {
-    -fx-background-color: #384651;
-    -fx-text-fill: white;
+    -fx-background-color: #3b82f6; 
+    -fx-text-fill: #ffffff;
 }
 
 .input-text {
     -fx-font-family: "Cambria";
     -fx-font-weight: bold;
     -fx-font-size: 14px;
-    -fx-background-radius: 3;
-    -fx-prompt-text-fill: #AAAAAA;
+    -fx-background-radius: 6;
+    -fx-background-color: #1e293b; 
+    -fx-text-fill: #f1f5f9;
+    -fx-prompt-text-fill: #94a3b8; 
+    -fx-border-color: #334155;
+    -fx-border-radius: 6;
+}
+
+.input-text:focused {
+    -fx-border-color: #3b82f6; 
+    -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.3), 6, 0.3, 0, 0);
 }
 
 .label-error {
-    -fx-text-fill: #ff0404;
+    -fx-text-fill: #ef4444;
     -fx-font-family: "Segoe UI";
     -fx-font-weight: bold;
     -fx-font-size: 14px;
 }
 
 .label-success {
-    -fx-text-fill: #3bc46b;
+    -fx-text-fill: #22c55e;
     -fx-font-family: "Segoe UI";
     -fx-font-weight: bold;
     -fx-font-size: 14px;
@@ -42,5 +58,3 @@
     -fx-text-fill: transparent;
     -fx-font-size: 14px;
 }
-
-

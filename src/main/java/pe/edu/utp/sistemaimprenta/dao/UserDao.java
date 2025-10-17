@@ -11,8 +11,9 @@ import pe.edu.utp.sistemaimprenta.db.DBConnection;
 import pe.edu.utp.sistemaimprenta.model.User;
 import pe.edu.utp.sistemaimprenta.model.UserType;
 import pe.edu.utp.sistemaimprenta.util.EncryptPassword;
+import pe.edu.utp.sistemaimprenta.util.Logger;
 
-public class UserDao implements CRUDDao<User> {
+public class UserDao implements CrudDao<User> {
 
     private User user;
 
@@ -32,7 +33,7 @@ public class UserDao implements CRUDDao<User> {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Error al verificar la existencia del usuario en la base de datos" + e);
+            Logger.error("No se pudo verificar la existencia del usuario en la base de datos", e);
         }
 
         return false;
@@ -50,7 +51,7 @@ public class UserDao implements CRUDDao<User> {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Error al verificar la existencia del email en la base de datos" + e);
+            Logger.error("No se pudo verificar la existencia del del email en la base de datos", e);
         }
 
         return false;
@@ -74,7 +75,7 @@ public class UserDao implements CRUDDao<User> {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Error al vereficar credenciales del usuario en la base de datos" + e);
+            Logger.error("No se pudo verificar credenciales del usuario en la base de datos", e);
         }
         return false;
     }
@@ -97,7 +98,7 @@ public class UserDao implements CRUDDao<User> {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Error al obtener usuario en la base de datos " + e);
+            Logger.error("No se pudo obtener usuario en la base de datos ", e);
         }
         return null;
     }
@@ -114,7 +115,7 @@ public class UserDao implements CRUDDao<User> {
             stmt.executeUpdate();
             return true;
         } catch (SQLException ex) {
-            System.out.println("Error al registrar usuario en la base de datos" + ex);
+            Logger.error("No se pudo registrar usuario en la base de datos", ex);
         }
         return false;
     }
@@ -127,7 +128,7 @@ public class UserDao implements CRUDDao<User> {
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
-            System.out.println("Error al elimar usuario " + e);
+            Logger.error("No se pudo elimar usuario en la base de datos", e);
             return false;
         }
     }
@@ -152,7 +153,7 @@ public class UserDao implements CRUDDao<User> {
             }
 
         } catch (SQLException e) {
-            System.out.println("Error al listar usuarios: " + e.getMessage());
+            Logger.error("No se pudo listar usuarios de la base de datos", e);
         }
 
         return lista;
@@ -175,7 +176,7 @@ public class UserDao implements CRUDDao<User> {
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.error("No se pudo actualizar usuario en la base de datos", e);
             return false;
         }
     }

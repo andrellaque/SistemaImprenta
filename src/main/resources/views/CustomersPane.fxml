@@ -69,6 +69,6 @@
       </Pane>
    </children>
    <stylesheets>
-      <URL value="@css/styleTest.css" />
+      <URL value="@/views/css/styleTest.css" />
    </stylesheets>
 </Pane>

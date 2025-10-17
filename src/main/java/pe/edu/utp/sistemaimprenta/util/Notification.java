@@ -33,7 +33,7 @@ public final class Notification {
         ImageView graphic = switch (notificationType) {
             case CONFIRM -> loadImage("confirm.png");
             case ERROR -> loadImage("error.png");
-            case INFORMATION -> loadImage("info.png");
+            case INFORMATION -> loadImage("information.png");
             case WARNING -> loadImage("warning.png");
             case SUCCESS -> loadImage("success.png");
             case SIMPLE -> null;
@@ -48,13 +48,13 @@ public final class Notification {
 
     private static ImageView loadImage(String fileName) {
         try {
-            Image image = new Image(Notification.class.getResourceAsStream("/imagen/" + fileName));
+            Image image = new Image(Notification.class.getResourceAsStream("/images/icons/" + fileName));
             ImageView imageView = new ImageView(image);
             imageView.setFitWidth(32);
             imageView.setFitHeight(32);
             return imageView;
         } catch (Exception e) {
-            System.err.println("No se pudo cargar la imagen: " + fileName);
+            Logger.error(String.format("No se pudo cargar la imagen  \"%s\"", fileName),e);
             return null;
         }
     }

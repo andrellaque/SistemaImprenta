@@ -75,8 +75,8 @@ public class DashboardController implements Initializable {
     }
     
     private void crearItemsAdministrador(){
-        createSidebarItem("Clientes", "", "/views/CustomersPane.fxml");
-        createSidebarItem("Personal", "", "/views/UsersPane.fxml");
+        createSidebarItem("Clientes", "/images/icons/c.png", FxmlPath.CUSTOMER_PANE.getPath());
+        createSidebarItem("Personal", "/images/icons/c.png", FxmlPath.USER_PANE.getPath());
         createSidebarItem("Reportes", "", "/views/Peliculas.fxml");
         createSidebarItem("Produccion", "", "/views/Peliculas.fxml");
         createSidebarItem("Auditoria", "", "/views/Peliculas.fxml");

@@ -44,7 +44,6 @@ public class RegisterController implements Initializable {
         userDao = new UserDao();
     }
   
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         btnEnter.setOnAction(e -> handleRegister());
@@ -56,7 +55,7 @@ public class RegisterController implements Initializable {
         String password = txtPassword.getText();
         String confirmPassword = txtConfirmPassword.getText();
         
-        String error = Validator.validateInputFieldsRegister(username, email, password, confirmPassword);
+        String error = validateInputFieldsRegister(username, email, password, confirmPassword);
         if (error != null) {
             Message.showMessage(lblError, error, "red");
             Notification.showNotification("REGISTER", "ERROR!", 4, NotificationType.ERROR);
@@ -89,4 +88,22 @@ public class RegisterController implements Initializable {
         txtConfirmPassword.clear();
     }
     
+    public static String validateInputFieldsRegister(String username, String email, String password, String confirmPassword) {
+        if (username == null || username.trim().isEmpty()) {
+            return "El nombre de usuario es obligatorio";
+        }
+        if (email == null || email.trim().isEmpty()) {
+            return "El correo electrónico es obligatorio";
+        }
+        if (!Validator.isValidEmail(email)) {
+            return "El correo electrónico no es válido";
+        }
+        if (password == null || password.trim().isEmpty()) {
+            return "La contraseña es obligatoria";
+        }
+        if (!password.equals(confirmPassword)) {
+            return "Las contraseñas no coinciden";
+        }
+        return null;
+    }
 }

@@ -6,90 +6,82 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="643.0" prefWidth="1174.0" stylesheets="@../views/css/styleDashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pe.edu.utp.sistemaimprenta.controller.DashboardController">
-   <children>
-      <VBox fx:id="sideBar" prefHeight="643.0" prefWidth="166.0" styleClass="side-bar">
-         <children>
-            <HBox alignment="CENTER" prefHeight="82.0" prefWidth="166.0">
+<BorderPane prefHeight="645.0" prefWidth="1239.0" stylesheets="@../views/css/styleDashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pe.edu.utp.sistemaimprenta.controller.DashboardController">
+
+    <!-- ====== SIDEBAR IZQUIERDO ====== -->
+    <left>
+        <VBox fx:id="sideBar" prefWidth="230.0" styleClass="side-bar" />
+    </left>
+
+    <!-- ====== TOP BAR SUPERIOR ====== -->
+    <top>
+        <HBox fx:id="topBar" alignment="CENTER_RIGHT" prefHeight="60.0" styleClass="top-bar">
+            <padding>
+                <Insets left="20.0" right="20.0" />
+            </padding>
+            <children>
+                <!-- Espaciador a la izquierda -->
+                <HBox prefHeight="46.0" prefWidth="938.0" HBox.hgrow="ALWAYS">
                <children>
-                  <ImageView fx:id="imgLogo" fitHeight="66.0" fitWidth="134.0" pickOnBounds="true" preserveRatio="true" />
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-      <HBox fx:id="topBar" layoutX="166.0" prefHeight="84.0" prefWidth="1010.0" styleClass="top-bar">
-         <children>
-            <HBox alignment="CENTER_RIGHT" prefHeight="84.0" prefWidth="1010.0">
-               <children>
-                  <VBox alignment="CENTER_RIGHT" prefHeight="84.0" prefWidth="450.0">
+                  <VBox prefHeight="53.0" prefWidth="54.0" />
+                  <ImageView fx:id="imgLogo" fitHeight="46.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/logo.png" />
+                     </image></ImageView>
+                  <VBox prefHeight="53.0" prefWidth="86.0">
                      <children>
-                        <Label fx:id="labelUsername" alignment="CENTER_RIGHT" prefHeight="19.0" prefWidth="480.0" textFill="#717171">
-                           <font>
-                              <Font name="Tahoma Bold" size="14.0" />
-                           </font></Label>
-                        <Label fx:id="labelTypeUser" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="477.0" textFill="WHITE">
-                           <font>
-                              <Font name="Calibri" size="14.0" />
-                           </font>
-                           <padding>
-                              <Insets top="5.0" />
-                           </padding></Label>
+                        <Label fx:id="labelUsername1" maxWidth="666.0" prefHeight="43.0" prefWidth="260.0" styleClass="company-name" text="IMPRENTA" wrapText="true" />
+                        <Label fx:id="labelUsername11" maxWidth="666.0" prefHeight="20.0" prefWidth="221.0" styleClass="company-name" text="GRAFICA" wrapText="true" />
+                        <Label fx:id="labelUsername111" layoutX="10.0" layoutY="30.0" maxWidth="666.0" prefHeight="20.0" prefWidth="221.0" styleClass="company-name" text="DAMIAN" wrapText="true" />
                      </children>
-                     <padding>
-                        <Insets right="10.0" />
-                     </padding>
                   </VBox>
-                  <ImageView fx:id="imgUser" fitHeight="74.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </ImageView>
-                  <MenuButton fx:id="menuButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="21.0" styleClass="top-bar">
-                     <items>
-                        <MenuItem fx:id="itemLogOut" mnemonicParsing="false">
-                           <graphic>
-                              <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="94.0">
-                                 <children>
-                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@/images/Logout.png" />
-                                       </image>
-                                    </ImageView>
-                                    <Label prefHeight="19.0" prefWidth="84.0" text="Log out">
-                                       <font>
-                                          <Font name="Segoe UI Bold" size="14.0" />
-                                       </font>
-                                       <HBox.margin>
-                                          <Insets />
-                                       </HBox.margin>
-                                       <padding>
-                                          <Insets left="5.0" />
-                                       </padding>
-                                    </Label>
-                                 </children>
-                                 <padding>
-                                    <Insets top="5.0" />
-                                 </padding>
-                              </HBox>
-                           </graphic></MenuItem>
-                     </items>
-                     <HBox.margin>
-                        <Insets left="5.0" />
-                     </HBox.margin>
-                  </MenuButton>
-               </children>
-               <padding>
-                  <Insets right="20.0" />
-               </padding>
-            </HBox>
-         </children>
-      </HBox>
-      <Pane fx:id="mainPanel" layoutX="166.0" layoutY="84.0" prefHeight="560.0" prefWidth="1010.0" styleClass="main-panel" />
-   </children>
-</AnchorPane>
+               </children></HBox>
+                
+                <!-- Información de usuario -->
+                <HBox alignment="CENTER_RIGHT" spacing="10">
+                    <children>
+                        <VBox alignment="CENTER_RIGHT">
+                            <children>
+                                <Label fx:id="labelUsername" alignment="CENTER_RIGHT" prefHeight="22.0" prefWidth="314.0" styleClass="user-name" text="Boulanger" />
+                                <Label fx:id="labelTypeUser" prefHeight="22.0" prefWidth="165.0" styleClass="user-role" text="OPERARIO PRODUCCION" />
+                            </children>
+                        </VBox>
+                        <ImageView fx:id="imgUser" fitHeight="45.0" fitWidth="45.0" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/DefaultProfileUser.png" />
+                     </image></ImageView>
+                        <MenuButton fx:id="menuButton" mnemonicParsing="false">
+                            <items>
+                                <MenuItem fx:id="itemLogOut" mnemonicParsing="false">
+                                    <graphic>
+                                        <HBox alignment="CENTER_LEFT" spacing="5">
+                                            <children>
+                                                <ImageView fitHeight="20.0" fitWidth="20.0" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@/images/Logout.png" />
+                                                    </image>
+                                                </ImageView>
+                                                <Label style="-fx-text-fill: white; -fx-font-size: 13px;" text="Cerrar sesión" />
+                                            </children>
+                                        </HBox>
+                                    </graphic>
+                                </MenuItem>
+                            </items>
+                        </MenuButton>
+                    </children>
+                </HBox>
+            </children>
+        </HBox>
+    </top>
+
+    <!-- ====== PANEL PRINCIPAL ====== -->
+    <center>
+        <Pane fx:id="mainPanel" styleClass="main-panel" />
+    </center>
+
+</BorderPane>

@@ -3,6 +3,7 @@ package pe.edu.utp.sistemaimprenta.db;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import pe.edu.utp.sistemaimprenta.util.Logger;
 
 public class DBConnection {
 
@@ -16,9 +17,9 @@ public class DBConnection {
             String password = DBConfig.get("db.password");
 
             this.connection = DriverManager.getConnection(url, user, password);
-            System.out.println("Se ha establecido conexión con la base de datos");
+            Logger.info("Se ha establecido conexión con la base de datos");
         } catch (SQLException e) {
-            System.err.println("No se pudo establecer conexión a la base de datos "+ e.getMessage());
+            Logger.error("No se pudo establecer conexion con la base de datos", e);
             throw new RuntimeException("Error al conectar con la base de datos", e);
         }
     }
@@ -40,7 +41,7 @@ public class DBConnection {
                 connection.close();
             }
         } catch (SQLException e) {
-            System.err.println("No se pudo cerrar la conexión a la base de datos " + e.getMessage());
+            Logger.error("No se pudo cerrar la conexión a la base de datos", e);
         }
     }
 }

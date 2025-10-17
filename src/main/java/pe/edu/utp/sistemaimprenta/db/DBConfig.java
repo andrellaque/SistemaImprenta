@@ -4,6 +4,7 @@ package pe.edu.utp.sistemaimprenta.db;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import pe.edu.utp.sistemaimprenta.util.Logger;
 
 public class DBConfig {
 
@@ -15,7 +16,7 @@ public class DBConfig {
         try (InputStream is = DBConfig.class.getClassLoader().getResourceAsStream(CONFIG_FILE)) {
             properties.load(is);
         } catch (IOException e) {
-            System.err.println("Error al cargar la configuración de la base de datos " + e.getMessage());
+             Logger.error("No se pudo cargar configuración de la base de datos",e);
         }
     }
 

@@ -34,7 +34,7 @@ public class ViewLoader {
             stage.setResizable(resizable);
             stage.show();
         } catch (IOException e) {
-            System.err.println("Error al abrir ventana: " + fxmlPath + " " + e);
+            Logger.error(String.format("No se pudó abrir el fxml \"%s\"", fxmlPath),e);
         }
     }
 
@@ -44,9 +44,7 @@ public class ViewLoader {
             Parent root = loader.load();
             mainPanel.getChildren().setAll(root);
         } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println(e.getMessage() + e.getLocalizedMessage());
-            System.err.println("Error al cambiar el panel: " + fxmlPath + " " + e);
+            Logger.error(String.format("Error al cambiar panel \"%s\"", fxmlPath),e);
         }
     }
 
@@ -62,7 +60,7 @@ public class ViewLoader {
             stage.show();
             return loader.getController();
         } catch (IOException e) {
-            System.err.println("Error al abrir ventana con controlador: " + fxmlPath + " " + e);
+            Logger.error(String.format("Error al abrir ventana con controlador \"%s\"", fxmlPath),e);
             return null;
         }
     }
@@ -80,9 +78,7 @@ public class ViewLoader {
             
             return new SidebarItemResult(sidebarItem, controller);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println(e.getLocalizedMessage());
-            e.printStackTrace();  
+            Logger.error("No se pudó cargar la barra lateral",e);
             return null;
         }
 

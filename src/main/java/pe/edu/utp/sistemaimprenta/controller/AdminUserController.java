@@ -18,8 +18,10 @@ import pe.edu.utp.sistemaimprenta.dao.UserDao;
 import pe.edu.utp.sistemaimprenta.model.User;
 import pe.edu.utp.sistemaimprenta.model.UserType;
 import pe.edu.utp.sistemaimprenta.util.EncryptPassword;
+import pe.edu.utp.sistemaimprenta.util.Message;
 import pe.edu.utp.sistemaimprenta.util.Notification;
 import pe.edu.utp.sistemaimprenta.util.NotificationType;
+import pe.edu.utp.sistemaimprenta.util.Validator;
 
 public class AdminUserController implements Initializable {
 
@@ -67,7 +69,7 @@ public class AdminUserController implements Initializable {
 
     @FXML
     private Label lblFiltro;
-    
+
     @FXML
     private TableView<User> tablaDatos;
 
@@ -82,7 +84,6 @@ public class AdminUserController implements Initializable {
 
     @FXML
     private TextField txtNombre;
-
 
     private ObservableList<User> listaUsuarios;
     private UserDao userDao;
@@ -101,7 +102,6 @@ public class AdminUserController implements Initializable {
 
         cmbRol.setItems(FXCollections.observableArrayList(UserType.values()));
 
-        // Configurar columnas
         colId.setCellValueFactory(data -> new javafx.beans.property.SimpleIntegerProperty(data.getValue().getId()).asObject());
         colNombre.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getUsername()));
         colEmail.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getEmail()));
@@ -128,22 +128,41 @@ public class AdminUserController implements Initializable {
     }
 
     private void registrar() {
+        String error = validateUserFields();
+        if (error != null) {
+            Message.showMessage(lblError, error, "red");
+            Notification.showNotification("Validación", error, 4, NotificationType.ERROR);
+            return;
+        }
+
         User u = new User();
         llenarDatosUsuario(u);
         userDao.save(u);
+        Notification.showNotification("USUARIO", "Registrado con éxito", 4, NotificationType.SUCCESS);
         refrescarTabla();
         limpiarCampos();
     }
 
     private void actualizar() {
         User seleccionado = tablaDatos.getSelectionModel().getSelectedItem();
-        if (seleccionado != null) {
-            llenarDatosUsuario(seleccionado);
-            userDao.uptade(seleccionado);
-            Notification.showNotification("USUARIO", "Actualizado con éxito", 4, NotificationType.SUCCESS);
-            refrescarTabla();
-            limpiarCampos();
+        if (seleccionado == null) {
+            Message.showMessage(lblError, "Debe seleccionar un registro", "red");
+            Notification.showNotification("USUARIO", "Debe seleccionar un registro", 4, NotificationType.WARNING);
+            return;
         }
+
+        String error = validateUserFields();
+        if (error != null) {
+            Message.showMessage(lblError, error, "red");
+            Notification.showNotification("Validación", error, 4, NotificationType.ERROR);
+            return;
+        }
+
+        llenarDatosUsuario(seleccionado);
+        userDao.uptade(seleccionado);
+        Notification.showNotification("USUARIO", "Actualizado con éxito", 4, NotificationType.SUCCESS);
+        refrescarTabla();
+        limpiarCampos();
     }
 
     private void eliminar() {
@@ -165,10 +184,14 @@ public class AdminUserController implements Initializable {
         }
 
         var filtrados = userDao.findAll().stream().filter(u -> switch (filtro) {
-            case "Nombre" -> u.getUsername().toLowerCase().contains(texto);
-            case "Email" -> u.getEmail().toLowerCase().contains(texto);
-            case "Rol" -> u.getType().toString().toLowerCase().contains(texto);
-            default -> false;
+            case "Nombre" ->
+                u.getUsername().toLowerCase().contains(texto);
+            case "Email" ->
+                u.getEmail().toLowerCase().contains(texto);
+            case "Rol" ->
+                u.getType().toString().toLowerCase().contains(texto);
+            default ->
+                false;
         }).toList();
 
         listaUsuarios.setAll(filtrados);
@@ -191,4 +214,24 @@ public class AdminUserController implements Initializable {
     private void refrescarTabla() {
         listaUsuarios.setAll(userDao.findAll());
     }
+
+    private String validateUserFields() {
+        if (txtNombre.getText().trim().isEmpty()) {
+            return "El nombre de usuario es obligatorio";
+        }
+        if (txtEmail.getText().trim().isEmpty()) {
+            return "El correo electrónico es obligatorio";
+        }
+        if (!Validator.isValidEmail(txtEmail.getText())) {
+            return "El correo electrónico no es válido";
+        }
+        if (txtContrasena.getText().trim().isEmpty()) {
+            return "La contraseña es obligatoria";
+        }
+        if (cmbRol.getValue() == null) {
+            return "Debe seleccionar un rol";
+        }
+        return null;
+    }
+
 }

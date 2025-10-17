@@ -105,20 +105,21 @@
 }
 
 /* Filas */
-.table-row-cell {
+.table-view .table-row-cell {
     -fx-background-color: #ffffff;
     -fx-border-color: transparent transparent #ecf0f1 transparent;
     -fx-font-size: 13px;
 }
 
-.table-row-cell:odd {
+.table-view .table-row-cell:odd {
     -fx-background-color: #f8f9fa;
 }
 
-.table-row-cell:selected {
+.table-view .table-row-cell:selected {
     -fx-background-color: #dcdde1;
     -fx-text-fill: black;
 }
+
 
 .panel2 {
     -fx-background-color: #4682B4;  /* Azul marino */

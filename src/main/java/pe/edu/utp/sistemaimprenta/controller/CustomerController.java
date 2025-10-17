@@ -1,7 +1,6 @@
 package pe.edu.utp.sistemaimprenta.controller;
 
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,8 +15,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import pe.edu.utp.sistemaimprenta.dao.CustomerDao;
 import pe.edu.utp.sistemaimprenta.model.Customer;
+import pe.edu.utp.sistemaimprenta.util.Message;
 import pe.edu.utp.sistemaimprenta.util.Notification;
 import pe.edu.utp.sistemaimprenta.util.NotificationType;
+import pe.edu.utp.sistemaimprenta.util.Validator;
 
 public class CustomerController implements Initializable {
 
@@ -86,6 +87,9 @@ public class CustomerController implements Initializable {
 
     @FXML
     private TextField txtTelefono;
+    
+    @FXML
+    private Label lblError;
 
     private ObservableList<Customer> listaClientes;
     private CustomerDao customerDao;
@@ -111,7 +115,7 @@ public class CustomerController implements Initializable {
         colDni.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getDni()));
         colDireccion.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getAddress()));
         colFecha.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getCreatedAt().toString()));
-        
+
         tablaDatos.getSelectionModel().selectedItemProperty()
                 .addListener((obs, oldSel, newSel) -> mostrarClienteSeleccionado(newSel));
 
@@ -142,24 +146,37 @@ public class CustomerController implements Initializable {
         String texto = txtBuscar.getText().trim().toLowerCase();
 
         if (texto.isEmpty()) {
-            refrescarTabla(); 
+            refrescarTabla();
             return;
         }
 
-        var filtrados = customerDao.findAll().stream().filter(c ->
-                switch (filtro){
-                case "DNI"-> c.getDni().toLowerCase().contains(texto);
-                case "Nombre"->  c.getName().toLowerCase().contains(texto);
-                case "Apellido"-> c.getLastName().toLowerCase().contains(texto);
-                case "Email"-> c.getEmail().toLowerCase().contains(texto);
-                case "Teléfono"-> c.getTelephoneNumber().toLowerCase().contains(texto);
-                default->  false;
+        var filtrados = customerDao.findAll().stream().filter(c
+                -> switch (filtro) {
+            case "DNI" ->
+                c.getDni().toLowerCase().contains(texto);
+            case "Nombre" ->
+                c.getName().toLowerCase().contains(texto);
+            case "Apellido" ->
+                c.getLastName().toLowerCase().contains(texto);
+            case "Email" ->
+                c.getEmail().toLowerCase().contains(texto);
+            case "Teléfono" ->
+                c.getTelephoneNumber().toLowerCase().contains(texto);
+            default ->
+                false;
         }).toList();
-        
+
         listaClientes.setAll(filtrados);
     }
 
     private void registrar() {
+        String error = validateCustomerFields();
+        if (error != null) {
+            Message.showMessage(lblError, error, "red");
+            Notification.showNotification("Validación", error, 4, NotificationType.ERROR);
+            return;
+        }
+
         Customer c = new Customer();
         llenarDatosCliente(c);
         customerDao.save(c);
@@ -169,13 +186,22 @@ public class CustomerController implements Initializable {
 
     private void actualizar() {
         Customer seleccionado = tablaDatos.getSelectionModel().getSelectedItem();
-        if (seleccionado != null) {
-            llenarDatosCliente(seleccionado);
-            customerDao.uptade(seleccionado);
-            Notification.showNotification("REGISTRO CLIENTE", "Con exito", 4, NotificationType.SUCCESS);
-            refrescarTabla();
-            limpiarCampos();
+        if (seleccionado == null) {
+            Message.showMessage(lblError, "Debe seleccionar un registro", "red");
+            Notification.showNotification("USUARIO", "Debe seleccionar un registro", 4, NotificationType.WARNING);
         }
+
+        String error = validateCustomerFields();
+        if (error != null) {
+            Notification.showNotification("Validación", error, 4, NotificationType.ERROR);
+            return;
+        }
+
+        llenarDatosCliente(seleccionado);
+        customerDao.uptade(seleccionado);
+        Notification.showNotification("REGISTRO CLIENTE", "Con éxito", 4, NotificationType.SUCCESS);
+        refrescarTabla();
+        limpiarCampos();
     }
 
     private void eliminar() {
@@ -206,6 +232,34 @@ public class CustomerController implements Initializable {
         for (TextField f : fields) {
             f.clear();
         }
+    }
+
+    private String validateCustomerFields() {
+        if (txtDni.getText().trim().isEmpty()) {
+            return "El DNI es obligatorio";
+        }
+        if (!Validator.isValidDNI(txtDni.getText())) {
+            return "El DNI no es válido";
+        }
+        if (txtNombres.getText().trim().isEmpty()) {
+            return "El nombre es obligatorio";
+        }
+        if (txtApellidos.getText().trim().isEmpty()) {
+            return "El apellido es obligatorio";
+        }
+        if (txtEmail.getText().trim().isEmpty()) {
+            return "El correo es obligatorio";
+        }
+        if (!Validator.isValidEmail(txtEmail.getText())) {
+            return "El correo no es válido";
+        }
+        if (txtTelefono.getText().trim().isEmpty()) {
+            return "El teléfono es obligatorio";
+        }
+        if (txtDireccion.getText().trim().isEmpty()) {
+            return "La dirección es obligatoria";
+        }
+        return null;
     }
 
 }

@@ -1,34 +1,112 @@
+.side-bar,
 .top-bar {
-    -fx-background-color: #1F1F1F; 
+    -fx-background-color: linear-gradient(to bottom, #0f172a, #1e293b);
 }
 
 .side-bar {
-    -fx-background-color: #1F1F1F; 
+    -fx-pref-width: 230px;
+    -fx-padding: 20 10 20 10;
+}
+
+
+.company-name {
+    -fx-text-fill: #f8fafc;           
+    -fx-font-family: "Segoe UI Black"; 
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-alignment: left;          
+    -fx-alignment: center-left;     
 }
 
 
 
-/* Estilo del texto en los ítems del menú */
+.sidebar-header Label {
+    -fx-text-fill: #f1f5f9;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.menu-item {
+    -fx-padding: 10 15 10 15;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-alignment: center-left;
+    -fx-spacing: 10;
+}
+
 .menu-label { 
-    -fx-text-fill: #3C3C3C;  
+    -fx-text-fill: #cbd5e1;  
+    -fx-font-size: 14px;
+    -fx-font-weight: 500;
 }
 
-/* Estilo al hacer hover sobre un ítem del menú */
 .menu-item:hover {
-    -fx-background-color: #34495E;  
+    -fx-background-color: #334155; 
 }
 
-/* Estilo para el ítem seleccionado */
-.menu-item.selected {
-    -fx-background-color: #34495E;  
-}
-
-/* Estilo del texto al hacer hover sobre un ítem */
 .menu-item:hover .menu-label {
-    -fx-text-fill: #f8fafc;  
+    -fx-text-fill: #ffffff;
 }
 
-/* Estilo del texto cuando el ítem está seleccionado */
+.menu-item.selected {
+    -fx-background-color: #3b82f6; }
+
 .menu-item.selected .menu-label {
-    -fx-text-fill: #f8fafc;  
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+
+.icon {
+    -fx-fit-height: 18px;
+    -fx-fit-width: 18px;
+    -fx-opacity: 0.85;
+}
+
+.menu-item:hover .icon,
+.menu-item.selected .icon {
+    -fx-opacity: 1;
+}
+
+
+.sidebar-separator {
+    -fx-background-color: rgba(255,255,255,0.1);
+    -fx-min-height: 1;
+    -fx-max-height: 1;
+    -fx-margin: 10 0 10 0;
+}
+
+.top-bar {
+    /* Gradiente horizontal: oscuro a la izquierda → claro a la derecha */
+    -fx-background-color: linear-gradient(to right, #0f172a, #1e293b);
+
+    -fx-padding: 10 20 10 20;
+    -fx-alignment: center-right;
+    -fx-pref-height: 55px;
+
+    /* Evitar líneas de separación o bordes visibles */
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-insets: 0;
+    -fx-effect: null;
+}
+
+.user-info {
+    -fx-alignment: center-right;
+    -fx-spacing: 8;
+}
+
+.user-name {
+    -fx-text-fill: #f1f5f9;
+    -fx-font-size: 15px;
+    -fx-font-weight: 600;
+}
+
+.user-role {
+    -fx-background-color: #3b82f6;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 2 8 2 8;
+    -fx-background-radius: 10;
+    -fx-alignment: center;
 }

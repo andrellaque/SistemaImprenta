@@ -16,7 +16,6 @@ import pe.edu.utp.sistemaimprenta.util.FxmlPath;
 import pe.edu.utp.sistemaimprenta.util.Message;
 import pe.edu.utp.sistemaimprenta.util.Notification;
 import pe.edu.utp.sistemaimprenta.util.NotificationType;
-import pe.edu.utp.sistemaimprenta.util.Validator;
 import pe.edu.utp.sistemaimprenta.util.ViewLoader;
 
 public class LoginController implements Initializable {
@@ -48,21 +47,21 @@ public class LoginController implements Initializable {
         String u = txtUsername.getText();
         String p = txtPassword.getText();
 
-        String error = Validator.validateInputFieldsLogin(u, p);
+        String error = validateInputFieldsLogin(u, p);
         if (error != null) {
             Message.showMessage(lblError, error, "red");
             Notification.showNotification("Login", "ERROR!", 4, NotificationType.ERROR);
             return;
         }
-         /* 
+        
         User user = new User("Javier","ads","dsa",UserType.ADMINISTRADOR);
             
             Notification.showNotification("Login", "Ingreso exitoso", 4, NotificationType.SUCCESS);
             openDashboard(user);
             closeCurrentStage();
         
-        */
         
+         /* 
         if (userDao.validateLogin(u, p)) {
             User user = userDao.getUser();
             Message.showMessage(lblError,"Inicio de sesión exitoso", "green");
@@ -72,7 +71,7 @@ public class LoginController implements Initializable {
         }else{
             Message.showMessage(lblError, "Credenciales incorrectas", "red");
             Notification.showNotification("Login", "ERROR!", 4, NotificationType.ERROR);
-        }
+        }*/
     }
     
     private void openDashboard(User user) {
@@ -87,5 +86,14 @@ public class LoginController implements Initializable {
         Stage currentStage = (Stage) txtUsername.getScene().getWindow();
         currentStage.close();
     }
-
+    
+    public static String validateInputFieldsLogin(String username ,String password) {
+        if (username == null || username.trim().isEmpty()) {
+            return "Debe ingresar su nombre de usuario";
+        }
+        if (password == null || password.trim().isEmpty()) {
+            return "Debe ingresar su contraseña";
+        }
+        return null;
+    }
 }

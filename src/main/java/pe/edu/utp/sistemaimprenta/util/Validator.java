@@ -27,35 +27,4 @@ public class Validator {
     public static boolean isValidEmail(String email) {
         return Pattern.matches(EMAIL_REGEX, email);
     }
-
-    public static String validateInputFieldsRegister(String username, String email, String password, String confirmPassword) {
-        if (username == null || username.trim().isEmpty()) {
-            return "El nombre de usuario es obligatorio";
-        }
-        if (email == null || email.trim().isEmpty()) {
-            return "El correo electrónico es obligatorio";
-        }
-        if (!Validator.isValidEmail(email)) {
-            return "El correo electrónico no es válido";
-        }
-        if (password == null || password.trim().isEmpty()) {
-            return "La contraseña es obligatoria";
-        }
-        if (!password.equals(confirmPassword)) {
-            return "Las contraseñas no coinciden";
-        }
-        return null;
-    }
-
-    public static String validateInputFieldsLogin(String username, String password) {
-        if (username == null || username.trim().isEmpty()) {
-            return "Debe ingresar su nombre de usuario";
-        }
-        if (password == null || password.trim().isEmpty()) {
-            return "Debe ingresar su contraseña";
-        }
-        return null;
-    }
-
-    
 }

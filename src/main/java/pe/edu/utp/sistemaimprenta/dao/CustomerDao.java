@@ -7,8 +7,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import pe.edu.utp.sistemaimprenta.db.DBConnection;
+import pe.edu.utp.sistemaimprenta.util.Logger;
 
-public class CustomerDao implements CRUDDao<Customer> {
+public class CustomerDao implements CrudDao<Customer> {
 
     private Connection getConnection() throws SQLException {
         return DBConnection.getInstance().getConnection();
@@ -27,7 +28,7 @@ public class CustomerDao implements CRUDDao<Customer> {
             ps.setString(6, c.getAddress());
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            System.out.println("Error al guardar cliente: " + e.getMessage());
+            Logger.error("No se pudo guardar cliente en la base de datos", e);
             return false;
         }
     }
@@ -52,7 +53,7 @@ public class CustomerDao implements CRUDDao<Customer> {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Error al buscar cliente por ID: " + e.getMessage());
+            Logger.error("Error al buscar cliente por ID", e);
         }
         return null;
     }
@@ -64,7 +65,7 @@ public class CustomerDao implements CRUDDao<Customer> {
             ps.setInt(1, id);
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            System.out.println("Error al eliminar cliente: " + e.getMessage());
+            Logger.error("Error al eliminar cliente por ID", e);
             return false;
         }
     }
@@ -83,7 +84,7 @@ public class CustomerDao implements CRUDDao<Customer> {
             ps.setInt(7, c.getId());
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            System.out.println("Error al actualizar cliente: " + e.getMessage());
+            Logger.error("Error al actualizar cliente ", e);
             return false;
         }
     }
@@ -106,7 +107,7 @@ public class CustomerDao implements CRUDDao<Customer> {
                 lista.add(c);
             }
         } catch (SQLException e) {
-            System.out.println("Error al listar clientes: " + e.getMessage());
+            Logger.error("No se pudo listar clientes de la base de datos", e);
         }
         return lista;
     }

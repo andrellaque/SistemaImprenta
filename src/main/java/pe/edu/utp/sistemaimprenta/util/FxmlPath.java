@@ -5,8 +5,10 @@ public enum FxmlPath {
     LOGIN_PANE("/views/LoginPane.fxml"),
     REGISTER_PANE("/views/RegisterPane.fxml"),
     DASHBOARD("/views/DashboardView.fxml"),
-    SIDEBAR_ITEM("/views/SidebarItem.fxml");
-    
+    SIDEBAR_ITEM("/views/SidebarItem.fxml"),
+    CUSTOMER_PANE("/views/CustomersPane.fxml"),
+    USER_PANE("/views/UsersPane.fxml");
+
     private final String path;
 
     private FxmlPath(String path) {
