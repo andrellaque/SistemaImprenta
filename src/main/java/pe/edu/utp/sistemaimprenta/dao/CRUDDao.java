@@ -1,7 +1,7 @@
 package pe.edu.utp.sistemaimprenta.dao;
 import java.util.List;
 
-public interface CRUDDao<T> {
+public interface CrudDao<T> {
 
     boolean save(T entity);
 

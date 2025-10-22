@@ -6,10 +6,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public final class Notification {
-
+    private static final Logger log = LoggerFactory.getLogger(Notification.class);
+    
     private Notification() {
     }
 
@@ -54,7 +57,7 @@ public final class Notification {
             imageView.setFitHeight(32);
             return imageView;
         } catch (Exception e) {
-            Logger.error(String.format("No se pudo cargar la imagen  \"%s\"", fileName),e);
+            log.error(String.format("No se pudo cargar la imagen  \"%s\"", fileName),e);
             return null;
         }
     }

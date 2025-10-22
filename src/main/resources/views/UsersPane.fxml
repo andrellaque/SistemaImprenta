@@ -20,7 +20,7 @@
             <Label fx:id="lblEmail" layoutX="33.0" layoutY="102.0" prefHeight="18.0" prefWidth="126.0" text="Correo electrónico" />
             <TextField fx:id="txtNombre" layoutX="30.0" layoutY="64.0" prefHeight="30.0" prefWidth="371.0" styleClass="text-field" />
             <TextField fx:id="txtEmail" layoutX="30.0" layoutY="127.0" prefHeight="30.0" prefWidth="371.0" styleClass="text-field" />
-            <Label fx:id="lblError" layoutX="33.0" layoutY="294.0" prefHeight="30.0" prefWidth="371.0" styleClass="label-neutral" stylesheets="@css/style.css" />
+            <Label fx:id="lblError" alignment="CENTER" layoutX="33.0" layoutY="294.0" prefHeight="30.0" prefWidth="371.0" styleClass="label-neutral" stylesheets="@css/style.css" />
             <Button fx:id="btnRegistrar" layoutX="33.0" layoutY="324.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="115.0" text="Registrar" />
             <Button fx:id="btnActualizar" layoutX="161.0" layoutY="325.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="115.0" text="Actualizar" />
             <Button fx:id="btnEliminar" layoutX="289.0" layoutY="325.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="115.0" styleClass="delete" text="Eliminar" />
@@ -33,7 +33,7 @@
       </Pane>
       <Pane layoutX="469.0" layoutY="90.0" prefHeight="420.0" prefWidth="515.0" styleClass="panel">
          <children>
-            <TableView fx:id="tablaDatos" layoutX="16.0" layoutY="91.0" prefHeight="267.0" prefWidth="486.0">
+            <TableView fx:id="tablaDatos" layoutX="16.0" layoutY="91.0" prefHeight="263.0" prefWidth="486.0">
               <columns>
                 <TableColumn fx:id="colId" prefWidth="37.0" text="Id" />
                   <TableColumn fx:id="colNombre" prefWidth="77.0" text="Nombre" />
@@ -51,6 +51,8 @@
             </ImageView>
             <ComboBox fx:id="cmbFiltro" layoutX="23.0" layoutY="56.0" prefHeight="18.0" prefWidth="104.0" promptText="Filtrar por" />
             <Label fx:id="lblFiltro" layoutX="134.0" layoutY="58.0" prefHeight="18.0" prefWidth="126.0" text="Email     Username" />
+            <Button fx:id="btnExcel" layoutX="126.0" layoutY="363.0" mnemonicParsing="false" styleClass="excel" text="Exportar EXCEL" />
+            <Button fx:id="btnCsv" layoutX="272.0" layoutY="363.0" mnemonicParsing="false" styleClass="csv" text="Exportar CSV" />
          </children>
       </Pane>
       <Label fx:id="lblTitulo" layoutX="107.0" layoutY="33.0" prefHeight="34.0" prefWidth="431.0" styleClass="title" text="Administración de usuarios" />

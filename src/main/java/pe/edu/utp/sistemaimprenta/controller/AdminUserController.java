@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -18,6 +19,7 @@ import pe.edu.utp.sistemaimprenta.dao.UserDao;
 import pe.edu.utp.sistemaimprenta.model.User;
 import pe.edu.utp.sistemaimprenta.model.UserType;
 import pe.edu.utp.sistemaimprenta.util.EncryptPassword;
+import pe.edu.utp.sistemaimprenta.util.Export;
 import pe.edu.utp.sistemaimprenta.util.Message;
 import pe.edu.utp.sistemaimprenta.util.Notification;
 import pe.edu.utp.sistemaimprenta.util.NotificationType;
@@ -32,7 +34,13 @@ public class AdminUserController implements Initializable {
     private ImageView btnBuscar;
 
     @FXML
+    private Button btnCsv;
+
+    @FXML
     private Button btnEliminar;
+
+    @FXML
+    private Button btnExcel;
 
     @FXML
     private Button btnLimpiar;
@@ -99,7 +107,9 @@ public class AdminUserController implements Initializable {
         btnEliminar.setOnAction(e -> eliminar());
         btnLimpiar.setOnAction(e -> limpiarCampos());
         btnBuscar.setOnMouseClicked(e -> buscarUsuario());
-
+        
+        btnExcel.setOnAction(this::exportarUsuariosExcel);
+        btnCsv.setOnAction(this::exportarUsuariosCsv);
         cmbRol.setItems(FXCollections.observableArrayList(UserType.values()));
 
         colId.setCellValueFactory(data -> new javafx.beans.property.SimpleIntegerProperty(data.getValue().getId()).asObject());
@@ -131,7 +141,7 @@ public class AdminUserController implements Initializable {
         String error = validateUserFields();
         if (error != null) {
             Message.showMessage(lblError, error, "red");
-            Notification.showNotification("Validación", error, 4, NotificationType.ERROR);
+            Notification.showNotification("Validación", "", 4, NotificationType.ERROR);
             return;
         }
 
@@ -147,14 +157,14 @@ public class AdminUserController implements Initializable {
         User seleccionado = tablaDatos.getSelectionModel().getSelectedItem();
         if (seleccionado == null) {
             Message.showMessage(lblError, "Debe seleccionar un registro", "red");
-            Notification.showNotification("USUARIO", "Debe seleccionar un registro", 4, NotificationType.WARNING);
+            Notification.showNotification("USUARIO", "", 4, NotificationType.WARNING);
             return;
         }
 
         String error = validateUserFields();
         if (error != null) {
             Message.showMessage(lblError, error, "red");
-            Notification.showNotification("Validación", error, 4, NotificationType.ERROR);
+            Notification.showNotification("Validación", "", 4, NotificationType.ERROR);
             return;
         }
 
@@ -233,5 +243,38 @@ public class AdminUserController implements Initializable {
         }
         return null;
     }
+    
+    private void exportarUsuariosExcel(ActionEvent e) {
+        String[] headers = {"ID", "Usuario", "Email", "Tipo", "Fecha Registro"};
+        Export.exportToExcel(
+                tablaDatos.getScene().getWindow(),
+                tablaDatos.getItems(),
+                "Usuarios",
+                headers,
+                u -> new Object[]{
+                    u.getId(),
+                    u.getUsername(),
+                    u.getEmail(),
+                    u.getType(),
+                    u.getCreatedAt()
+                }
+        );
+    }
 
+    private void exportarUsuariosCsv(ActionEvent e) {
+        String[] headers = {"ID", "Usuario", "Email", "Tipo", "Fecha Registro"};
+        Export.exportToCsv(
+                tablaDatos.getScene().getWindow(),
+                tablaDatos.getItems(),
+                "Usuarios",
+                headers,
+                u -> new Object[]{
+                    u.getId(),
+                    u.getUsername(),
+                    u.getEmail(),
+                    u.getType(),
+                    u.getCreatedAt()
+                }
+        );
+    }
 }

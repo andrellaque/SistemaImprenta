@@ -9,10 +9,13 @@ import java.io.IOException;
 import java.net.URL;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pe.edu.utp.sistemaimprenta.controller.SidebarItemController;
 
 public class ViewLoader {
-
+    
+    private static final Logger log = LoggerFactory.getLogger(ViewLoader.class);
     private ViewLoader() {
     }
     
@@ -34,7 +37,7 @@ public class ViewLoader {
             stage.setResizable(resizable);
             stage.show();
         } catch (IOException e) {
-            Logger.error(String.format("No se pudó abrir el fxml \"%s\"", fxmlPath),e);
+            log.error(String.format("No se pudó abrir el fxml \"%s\"", fxmlPath),e);
         }
     }
 
@@ -44,7 +47,7 @@ public class ViewLoader {
             Parent root = loader.load();
             mainPanel.getChildren().setAll(root);
         } catch (IOException e) {
-            Logger.error(String.format("Error al cambiar panel \"%s\"", fxmlPath),e);
+            log.error(String.format("Error al cambiar panel \"%s\"", fxmlPath),e);
         }
     }
 
@@ -60,7 +63,7 @@ public class ViewLoader {
             stage.show();
             return loader.getController();
         } catch (IOException e) {
-            Logger.error(String.format("Error al abrir ventana con controlador \"%s\"", fxmlPath),e);
+            log.error(String.format("Error al abrir ventana con controlador \"%s\"", fxmlPath),e);
             return null;
         }
     }
@@ -78,7 +81,7 @@ public class ViewLoader {
             
             return new SidebarItemResult(sidebarItem, controller);
         } catch (Exception e) {
-            Logger.error("No se pudó cargar la barra lateral",e);
+            log.error("No se pudó cargar la barra lateral",e);
             return null;
         }
 

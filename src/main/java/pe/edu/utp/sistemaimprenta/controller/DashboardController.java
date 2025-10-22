@@ -55,7 +55,7 @@ public class DashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setImage(imgLogo, "/images/logo2.png");
+        setImage(imgLogo, "/images/logo.png");
         setImage(imgUser, "/images/DefaultProfileUser.png");
         itemLogOut.setOnAction(this::logOut);
     }

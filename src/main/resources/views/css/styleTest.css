@@ -81,6 +81,32 @@
     -fx-background-color: linear-gradient(to right, #dcdde1, #7f8c8d);
 }
 
+.button.excel {
+    -fx-background-color: linear-gradient(to right, #27ae60, #2ecc71);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+    -fx-padding: 6px 12px;
+}
+.button.excel:hover {
+    -fx-background-color: linear-gradient(to right, #2ecc71, #27ae60);
+}
+
+
+.button.csv {
+    -fx-background-color: linear-gradient(to right, #f39c12, #f1c40f);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+    -fx-padding: 6px 12px;
+}
+.button.csv:hover {
+    -fx-background-color: linear-gradient(to right, #f1c40f, #e67e22);
+}
+
+
 /* ===== Tabla ===== */
 .table-view {
     -fx-background-color: #ffffff;

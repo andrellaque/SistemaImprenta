@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -15,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import pe.edu.utp.sistemaimprenta.dao.CustomerDao;
 import pe.edu.utp.sistemaimprenta.model.Customer;
+import pe.edu.utp.sistemaimprenta.util.Export;
 import pe.edu.utp.sistemaimprenta.util.Message;
 import pe.edu.utp.sistemaimprenta.util.Notification;
 import pe.edu.utp.sistemaimprenta.util.NotificationType;
@@ -26,7 +28,13 @@ public class CustomerController implements Initializable {
     private Button btnActualizar;
 
     @FXML
+    private Button btnCsv;
+
+    @FXML
     private Button btnEliminar;
+
+    @FXML
+    private Button btnExcel;
 
     @FXML
     private Button btnLimpiar;
@@ -87,7 +95,7 @@ public class CustomerController implements Initializable {
 
     @FXML
     private TextField txtTelefono;
-    
+
     @FXML
     private Label lblError;
 
@@ -104,7 +112,8 @@ public class CustomerController implements Initializable {
         btnActualizar.setOnAction(e -> actualizar());
         btnEliminar.setOnAction(e -> eliminar());
         btnLimpiar.setOnAction(e -> limpiarCampos());
-
+        btnExcel.setOnAction(this::exportarClientesExcel);
+        btnCsv.setOnAction(this::exportarClientesCsv);
         listaClientes = FXCollections.observableArrayList(customerDao.findAll());
         tablaDatos.setItems(listaClientes);
 
@@ -173,7 +182,7 @@ public class CustomerController implements Initializable {
         String error = validateCustomerFields();
         if (error != null) {
             Message.showMessage(lblError, error, "red");
-            Notification.showNotification("Validación", error, 4, NotificationType.ERROR);
+            Notification.showNotification("Validación", "", 4, NotificationType.ERROR);
             return;
         }
 
@@ -188,12 +197,13 @@ public class CustomerController implements Initializable {
         Customer seleccionado = tablaDatos.getSelectionModel().getSelectedItem();
         if (seleccionado == null) {
             Message.showMessage(lblError, "Debe seleccionar un registro", "red");
-            Notification.showNotification("USUARIO", "Debe seleccionar un registro", 4, NotificationType.WARNING);
+            Notification.showNotification("USUARIO", "", 4, NotificationType.WARNING);
         }
 
         String error = validateCustomerFields();
         if (error != null) {
-            Notification.showNotification("Validación", error, 4, NotificationType.ERROR);
+            Message.showMessage(lblError, error, "red");
+            Notification.showNotification("Validación", "", 4, NotificationType.ERROR);
             return;
         }
 
@@ -260,6 +270,46 @@ public class CustomerController implements Initializable {
             return "La dirección es obligatoria";
         }
         return null;
+    }
+
+    private void exportarClientesExcel(ActionEvent e) {
+        String[] headers = {"ID", "DNI", "Apellidos", "Nombres", "Email", "Teléfono", "Dirección", "Fecha"};
+        Export.exportToExcel(
+                tablaDatos.getScene().getWindow(),
+                tablaDatos.getItems(),
+                "Clientes",
+                headers,
+                c -> new Object[]{
+                    c.getId(),
+                    c.getDni(),
+                    c.getLastName(),
+                    c.getName(),
+                    c.getEmail(),
+                    c.getTelephoneNumber(),
+                    c.getAddress(),
+                    c.getCreatedAt()
+                }
+        );
+    }
+
+    private void exportarClientesCsv(ActionEvent e) {
+        String[] headers = {"ID", "DNI", "Apellidos", "Nombres", "Email", "Teléfono", "Dirección", "Fecha"};
+        Export.exportToCsv(
+                tablaDatos.getScene().getWindow(),
+                tablaDatos.getItems(),
+                "Clientes",
+                headers,
+                c -> new Object[]{
+                    c.getId(),
+                    c.getDni(),
+                    c.getLastName(),
+                    c.getName(),
+                    c.getEmail(),
+                    c.getTelephoneNumber(),
+                    c.getAddress(),
+                    c.getCreatedAt()
+                }
+        );
     }
 
 }

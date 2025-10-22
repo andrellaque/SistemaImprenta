@@ -1,5 +1,6 @@
 package pe.edu.utp.sistemaimprenta.util;
 
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 
 public class Message {
@@ -15,5 +16,19 @@ public class Message {
         }
 
         label.setText(message);
+    }
+    
+    public static void info(String msg) {
+        show(msg, Alert.AlertType.INFORMATION);
+    }
+    public static void error(String msg) {
+        show(msg, Alert.AlertType.ERROR);
+    }
+    private static void show(String msg, Alert.AlertType type) {
+        Alert a = new Alert(type);
+        a.setTitle(type == Alert.AlertType.ERROR ? "Error" : "Información");
+        a.setHeaderText(null);
+        a.setContentText(msg);
+        a.showAndWait();
     }
 }
