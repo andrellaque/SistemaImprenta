@@ -64,7 +64,7 @@ public class RegisterController implements Initializable {
 
         UserType defaultType = UserType.ADMINISTRADOR;
         
-        if (userDao.existsUser(username)) {
+       /* if (userDao.existsUser(username)) {
             Message.showMessage(lblError, "Nombre de usuario en uso", "red");
             Notification.showNotification("REGISTER", "ERROR!", 4, NotificationType.ERROR);
         } else if (userDao.existsEmail(email)) {
@@ -78,7 +78,7 @@ public class RegisterController implements Initializable {
             Message.showMessage(lblError, "Error al registrar usuario", "red");
             Notification.showNotification("REGISTER", "ERROR!", 4, NotificationType.ERROR);
         }
-        
+        */
     }
     
     private void clear() {

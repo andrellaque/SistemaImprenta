@@ -14,8 +14,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import pe.edu.utp.sistemaimprenta.model.AuditType;
 import pe.edu.utp.sistemaimprenta.model.User;
 import pe.edu.utp.sistemaimprenta.model.UserType;
+import pe.edu.utp.sistemaimprenta.util.AuditUtil;
 import pe.edu.utp.sistemaimprenta.util.FxmlPath;
 import pe.edu.utp.sistemaimprenta.util.ViewLoader;
 import pe.edu.utp.sistemaimprenta.util.ViewLoader.SidebarItemResult;
@@ -39,7 +41,7 @@ public class DashboardController implements Initializable {
 
     @FXML
     private MenuButton menuButton;
-   
+
     @FXML
     private MenuItem itemLogOut;
 
@@ -48,10 +50,9 @@ public class DashboardController implements Initializable {
 
     @FXML
     private HBox topBar;
-    
+
     private User user;
     private HBox selectedItem = null;
- 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -59,30 +60,30 @@ public class DashboardController implements Initializable {
         setImage(imgUser, "/images/DefaultProfileUser.png");
         itemLogOut.setOnAction(this::logOut);
     }
-    
-    private void crearItemsVendedor(){
+
+    private void crearItemsVendedor() {
         createSidebarItem("Clientes", "/images/EyePassword", "/views/UsersPane.fxml");
         createSidebarItem("Pedidos", "", "/views/Peliculas.fxml");
         createSidebarItem("Cotizaciones", "", "/views/Peliculas.fxml");
         createSidebarItem("Pagos", "", "/views/Peliculas.fxml");
         createSidebarItem("Reportes", "", "/views/Peliculas.fxml");
     }
-    
-    private void crearItemsOperario(){
+
+    private void crearItemsOperario() {
         createSidebarItem("Produccion", "", "/views/Clientes.fxml");
         createSidebarItem("Detalles Tecnicos", "", "/views/Peliculas.fxml");
         createSidebarItem("Incidencias", "", "/views/Peliculas.fxml");
     }
-    
-    private void crearItemsAdministrador(){
+
+    private void crearItemsAdministrador() {
         createSidebarItem("Clientes", "/images/icons/c.png", FxmlPath.CUSTOMER_PANE.getPath());
-        createSidebarItem("Personal", "/images/icons/c.png", FxmlPath.USER_PANE.getPath());
-        createSidebarItem("Reportes", "", "/views/Peliculas.fxml");
+        createSidebarItem("Personal", "/images/icons/customers2.png", FxmlPath.USER_PANE.getPath());
+        createSidebarItem("Auditoria", "/images/icons/audit.png", FxmlPath.AUDIT_PANE.getPath());
         createSidebarItem("Produccion", "", "/views/Peliculas.fxml");
-        createSidebarItem("Auditoria", "", "/views/Peliculas.fxml");
+        createSidebarItem("Reportes", "", "/views/Peliculas.fxml");
         createSidebarItem("Configuracion", "", "/views/Peliculas.fxml");
     }
-    
+
     private void setImage(ImageView imageView, String resourcePath) {
         Image image = new Image(getClass().getResourceAsStream(resourcePath));
         imageView.setImage(image);
@@ -93,11 +94,14 @@ public class DashboardController implements Initializable {
             this.user = user;
             labelUsername.setText(user.getUsername());
             labelTypeUser.setText(getUserTypeCentralized());
-            
-            switch(user.getType()){
-                case UserType.VENDEDOR-> crearItemsVendedor();
-                case UserType.ADMINISTRADOR-> crearItemsAdministrador();
-                case UserType.OPERARIO_PRODUCCION-> crearItemsOperario();
+
+            switch (user.getType()) {
+                case UserType.VENDEDOR ->
+                    crearItemsVendedor();
+                case UserType.ADMINISTRADOR ->
+                    crearItemsAdministrador();
+                case UserType.OPERARIO_PRODUCCION ->
+                    crearItemsOperario();
             }
         }
     }
@@ -112,14 +116,18 @@ public class DashboardController implements Initializable {
             return;
         }
 
-        HBox sidebarItem = result.node(); 
+        HBox sidebarItem = result.node();
         sidebarItem.setOnMouseClicked(e -> {
             if (selectedItem != null) {
                 selectedItem.getStyleClass().remove("selected");
             }
             sidebarItem.getStyleClass().add("selected");
             selectedItem = sidebarItem;
-            ViewLoader.changeMainPanel(mainPanel, fxmlToLoad);
+            Object controller = ViewLoader.changeMainPanelGetController(mainPanel, fxmlToLoad);
+
+            if (controller instanceof AdminUserController adminController) {
+                adminController.setUsuarioActual(user);
+            }
         });
 
         sidebarItem.getStyleClass().add("menu-item");
@@ -128,6 +136,7 @@ public class DashboardController implements Initializable {
     }
 
     private void logOut(ActionEvent event) {
+        AuditUtil.registrar(getUser(), "Se desconectó del sistema", AuditType.LOGOUT);
         closeCurrentStage();
         ViewLoader.openWindow(FxmlPath.AUTH.getPath(), "Login", false);
     }

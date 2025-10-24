@@ -1,22 +1,19 @@
-/* Panel contenedor tipo tarjeta */
 .panel {
-    -fx-background-color: #ffffff;          /* Fondo blanco */
-    -fx-background-radius: 12px;            /* Bordes redondeados */
-    -fx-border-radius: 12px;                /* Bordes redondeados */
-    -fx-border-color: #b2b2b2;              /* Borde gris más notorio */
-    -fx-border-width: 1.2;                  /* Grosor del borde un poco mayor */
-    -fx-padding: 15;                        /* Espaciado interno */
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 10, 0, 0, 3); /* Sombra un poco más marcada */
+    -fx-background-color: #ffffff;         
+    -fx-background-radius: 12px;            
+    -fx-border-radius: 12px;                
+    -fx-border-color: #b2b2b2;             
+    -fx-border-width: 1.2;                  
+    -fx-padding: 15;                        
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 10, 0, 0, 3); 
 }
 
-/* ===== Estilo general ===== */
 .root {
     -fx-font-family: "Segoe UI";
-    -fx-background-color: #e6e9f0; /* Fondo un poco más notorio que #f5f6fa */
+    -fx-background-color: #e6e9f0; 
 }
 
 
-/* ===== Etiquetas ===== */
 .label {
     -fx-text-fill: #2f3640;
     -fx-font-size: 14px;
@@ -29,7 +26,6 @@
     -fx-font-weight: bold;
 }
 
-/* ===== Campos de texto ===== */
 .text-field, .text-area {
     -fx-background-color: #ffffff;
     -fx-border-color: #dcdde1;
@@ -44,7 +40,6 @@
     -fx-effect: dropshadow(gaussian, rgba(64,115,158,0.3), 6, 0, 0, 2);
 }
 
-/* ===== Botones ===== */
 .button {
     -fx-font-size: 15px;
     -fx-background-color: linear-gradient(to right, #40739e, #273c75);
@@ -60,7 +55,6 @@
     -fx-background-color: linear-gradient(to right, #487eb0, #2f3640);
 }
 
-/* Botón eliminar con color especial */
 .button.delete {
     -fx-background-color: linear-gradient(to right, #e84118, #c23616);
 }
@@ -107,7 +101,7 @@
 }
 
 
-/* ===== Tabla ===== */
+/* 
 .table-view {
     -fx-background-color: #ffffff;
     -fx-border-color: #dcdde1;
@@ -117,7 +111,7 @@
     -fx-padding: 5px;
 }
 
-/* Cabecera */
+
 .table-view .column-header-background {
     -fx-background-color: linear-gradient(to right, #40739e, #273c75);
     -fx-background-radius: 6px 6px 0 0;
@@ -130,7 +124,7 @@
     -fx-alignment: CENTER;
 }
 
-/* Filas */
+
 .table-view .table-row-cell {
     -fx-background-color: #ffffff;
     -fx-border-color: transparent transparent #ecf0f1 transparent;
@@ -145,11 +139,53 @@
     -fx-background-color: #dcdde1;
     -fx-text-fill: black;
 }
-
+*/
 
 .panel2 {
     -fx-background-color: #4682B4;  /* Azul marino */
     -fx-padding: 20;
     -fx-background-radius: 10;
 }
+
+
+.item-root {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-padding: 10 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 5, 0, 0, 2);
+}
+
+.icon-container {
+    -fx-background-radius: 20;
+    -fx-alignment: center;
+}
+
+.tipo-label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 2 8;
+    -fx-background-radius: 10;
+    -fx-text-fill: white;
+}
+
+.creacion { -fx-background-color: #DFF6E3; }
+.creacion-label { -fx-background-color: #86E49D; -fx-text-fill: #064420; }
+
+.modificacion { -fx-background-color: #E2EBFF; }
+.modificacion-label { -fx-background-color: #A3B8FF; -fx-text-fill: #002F8A; }
+
+.actualizacion { -fx-background-color: #F3E1FF; }
+.actualizacion-label { -fx-background-color: #D9B8FF; -fx-text-fill: #4A0072; }
+
+.eliminacion { -fx-background-color: #FFE0E0; }
+.eliminacion-label { -fx-background-color: #FF8A8A; -fx-text-fill: #700000; }
+
+.consulta { -fx-background-color: #F0F0F0; }
+.consulta-label { -fx-background-color: #C0C0C0; -fx-text-fill: #333; }
+
+.login { -fx-background-color: #E0FFF4; }
+.login-label { -fx-background-color: #58D68D; -fx-text-fill: #004D26; }
+
+.logout { -fx-background-color: #FFF5E0; }
+.logout-label { -fx-background-color: #F5B041; -fx-text-fill: #5C2E00; }
 

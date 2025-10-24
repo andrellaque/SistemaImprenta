@@ -86,4 +86,17 @@ public class ViewLoader {
         }
 
     }
+    
+    public static <T> T changeMainPanelGetController(Pane mainPanel, String fxmlPath) {
+    try {
+        FXMLLoader loader = createFXMLLoader(fxmlPath);
+        Parent root = loader.load();
+        mainPanel.getChildren().setAll(root);
+        return loader.getController();
+    } catch (IOException e) {
+        log.error(String.format("Error al cambiar panel con controlador \"%s\"", fxmlPath), e);
+        return null;
+    }
+}
+
 }

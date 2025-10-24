@@ -10,8 +10,10 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pe.edu.utp.sistemaimprenta.db.DBConnection;
+import pe.edu.utp.sistemaimprenta.model.AuditType;
 import pe.edu.utp.sistemaimprenta.model.User;
 import pe.edu.utp.sistemaimprenta.model.UserType;
+import pe.edu.utp.sistemaimprenta.util.AuditUtil;
 import pe.edu.utp.sistemaimprenta.util.EncryptPassword;
 
 public class UserDao implements CrudDao<User> {
@@ -72,6 +74,7 @@ public class UserDao implements CrudDao<User> {
 
                     if (EncryptPassword.verify(password, hashFromDB)) {
                         this.user = findById(id);
+                        AuditUtil.registrar(user, "Se conectó al sistema", AuditType.LOGIN);
                         return true;
                     }
                 }
@@ -106,7 +109,7 @@ public class UserDao implements CrudDao<User> {
     }
     
     @Override
-    public boolean save(User entity) {
+    public boolean save(User entity, User u) {
         String query = "INSERT INTO Usuario (nombre, hash_contrasena, correo_electronico, id_tipo_usuario) VALUES (?,?,?,?)";
 
         try (PreparedStatement stmt = getConnection().prepareStatement(query)) {
@@ -115,6 +118,9 @@ public class UserDao implements CrudDao<User> {
             stmt.setString(3, entity.getEmail());
             stmt.setInt(4, entity.getType().getId());
             stmt.executeUpdate();
+           
+            AuditUtil.registrar(u, "Creó nuevo usuario: "+ entity.getUsername(), AuditType.CREACION);
+
             return true;
         } catch (SQLException ex) {
             log.error("No se pudo registrar usuario en la base de datos", ex);
@@ -123,11 +129,12 @@ public class UserDao implements CrudDao<User> {
     }
 
     @Override
-    public boolean delete(int id) {
+    public boolean delete(int id, User u) {
         String sql = "DELETE FROM Usuario WHERE id_usuario=?";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
             ps.setInt(1, id);
             ps.executeUpdate();
+            AuditUtil.registrar(u, "Eliminó el usuario USU-"+id, AuditType.ELIMINACION);
             return true;
         } catch (SQLException e) {
             log.error("No se pudo elimar usuario en la base de datos", e);
@@ -166,7 +173,7 @@ public class UserDao implements CrudDao<User> {
     }
 
     @Override
-    public boolean uptade(User entity) {
+    public boolean uptade(User entity, User u) {
         String sql = "UPDATE Usuario SET nombre=?, hash_contrasena=?, correo_electronico=?, id_tipo_usuario=? WHERE id_usuario=?";
       
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
@@ -176,6 +183,7 @@ public class UserDao implements CrudDao<User> {
             ps.setInt(4, entity.getType().getId());
             ps.setInt(5, entity.getId());
             ps.executeUpdate();
+            AuditUtil.registrar(u, "Actualizó el usuario USU-"+entity.getId(), AuditType.MODIFICACION);
             return true;
         } catch (SQLException e) {
             log.error("No se pudo actualizar usuario en la base de datos", e);

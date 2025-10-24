@@ -7,8 +7,10 @@ public enum FxmlPath {
     DASHBOARD("/views/DashboardView.fxml"),
     SIDEBAR_ITEM("/views/SidebarItem.fxml"),
     CUSTOMER_PANE("/views/CustomersPane.fxml"),
-    USER_PANE("/views/UsersPane.fxml");
-
+    USER_PANE("/views/UsersPane.fxml"),
+    AUDIT_PANE("/views/AuditPane.fxml"),
+    AUDIT_ITEM("/views/AuditItem.fxml");
+    
     private final String path;
 
     private FxmlPath(String path) {

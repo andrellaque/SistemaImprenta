@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+
+<HBox fx:id="root" spacing="10" alignment="CENTER_LEFT"
+      xmlns="http://javafx.com/javafx/23.0.1"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="pe.edu.utp.sistemaimprenta.controller.AuditItemController"
+      stylesheets="@../css/styleTest.css"
+      styleClass="item-root">
+    <StackPane fx:id="iconContainer" prefWidth="40" prefHeight="40" styleClass="icon-container">
+        <ImageView fx:id="iconView" fitWidth="20" fitHeight="20"/>
+    </StackPane>
+
+    <VBox spacing="3" alignment="CENTER_LEFT">
+        <Label fx:id="lblUsuario" style="-fx-font-weight: bold; -fx-font-size: 14px;"/>
+        <Label fx:id="lblDescripcion" style="-fx-text-fill: #555; -fx-font-size: 13px;"/>
+    </VBox>
+
+    <Region HBox.hgrow="ALWAYS"/>
+
+    <VBox alignment="CENTER_RIGHT" spacing="3">
+        <Label fx:id="lblFecha" style="-fx-font-size: 12px; -fx-text-fill: #888;"/>
+        <Label fx:id="lblTipo" styleClass="tipo-label"/>
+    </VBox>
+</HBox>

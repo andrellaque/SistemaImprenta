@@ -188,7 +188,7 @@ public class CustomerController implements Initializable {
 
         Customer c = new Customer();
         llenarDatosCliente(c);
-        customerDao.save(c);
+        //customerDao.save(c);
         refrescarTabla();
         limpiarCampos();
     }
@@ -208,7 +208,7 @@ public class CustomerController implements Initializable {
         }
 
         llenarDatosCliente(seleccionado);
-        customerDao.uptade(seleccionado);
+        //customerDao.uptade(seleccionado);
         Notification.showNotification("REGISTRO CLIENTE", "Con éxito", 4, NotificationType.SUCCESS);
         refrescarTabla();
         limpiarCampos();
@@ -217,7 +217,7 @@ public class CustomerController implements Initializable {
     private void eliminar() {
         Customer seleccionado = tablaDatos.getSelectionModel().getSelectedItem();
         if (seleccionado != null) {
-            customerDao.delete(seleccionado.getId());
+           // customerDao.delete(seleccionado.getId());
             refrescarTabla();
             limpiarCampos();
 

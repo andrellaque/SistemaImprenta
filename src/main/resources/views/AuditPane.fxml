@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<Pane prefHeight="560.0" prefWidth="1010.0" styleClass="root" stylesheets="@css/styleTest.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pe.edu.utp.sistemaimprenta.controller.AuditController">
+
+   <children>
+
+      <Pane layoutX="33.0" layoutY="90.0" prefHeight="420.0" prefWidth="951.0" styleClass="panel">
+         <children>
+
+            <ScrollPane fitToWidth="true" layoutX="33.0" layoutY="39.0" prefHeight="351.0" prefWidth="883.0" style="-fx-background-color: transparent; -fx-background: transparent;">
+                <content>
+                    <VBox fx:id="contenedorAuditoria" prefWidth="883.0" spacing="10" style="-fx-background-color: transparent; -fx-padding: 10 0 10 0;" />
+                </content>
+            </ScrollPane>
+
+            <Label fx:id="lblError" layoutX="33.0" layoutY="390.0" prefHeight="30.0" prefWidth="371.0" styleClass="label" text="" />
+         </children>
+      </Pane>
+
+      <Label fx:id="lblTitulo" layoutX="108.0" layoutY="34.0" prefHeight="34.0" prefWidth="431.0" styleClass="title" text="Auditoría" />
+
+      <Pane fx:id="paneIcon" layoutX="40.0" layoutY="27.0" prefHeight="50.0" prefWidth="56.0" styleClass="panel2">
+         <children>
+            <ImageView fx:id="imgIcon" fitHeight="44.0" fitWidth="49.0" layoutX="7.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" styleClass="icono-imagen">
+               <image>
+                  <Image url="@../images/icons/audit.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+
+   </children>
+</Pane>

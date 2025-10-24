@@ -107,7 +107,7 @@ public class AdminUserController implements Initializable {
         btnEliminar.setOnAction(e -> eliminar());
         btnLimpiar.setOnAction(e -> limpiarCampos());
         btnBuscar.setOnMouseClicked(e -> buscarUsuario());
-        
+
         btnExcel.setOnAction(this::exportarUsuariosExcel);
         btnCsv.setOnAction(this::exportarUsuariosCsv);
         cmbRol.setItems(FXCollections.observableArrayList(UserType.values()));
@@ -147,7 +147,7 @@ public class AdminUserController implements Initializable {
 
         User u = new User();
         llenarDatosUsuario(u);
-        userDao.save(u);
+        userDao.save(u,usuarioActual);
         Notification.showNotification("USUARIO", "Registrado con éxito", 4, NotificationType.SUCCESS);
         refrescarTabla();
         limpiarCampos();
@@ -169,7 +169,7 @@ public class AdminUserController implements Initializable {
         }
 
         llenarDatosUsuario(seleccionado);
-        userDao.uptade(seleccionado);
+        userDao.uptade(seleccionado,usuarioActual);
         Notification.showNotification("USUARIO", "Actualizado con éxito", 4, NotificationType.SUCCESS);
         refrescarTabla();
         limpiarCampos();
@@ -178,7 +178,7 @@ public class AdminUserController implements Initializable {
     private void eliminar() {
         User seleccionado = tablaDatos.getSelectionModel().getSelectedItem();
         if (seleccionado != null) {
-            userDao.delete(seleccionado.getId());
+            userDao.delete(seleccionado.getId(),usuarioActual);
             refrescarTabla();
             limpiarCampos();
         }
@@ -243,7 +243,7 @@ public class AdminUserController implements Initializable {
         }
         return null;
     }
-    
+
     private void exportarUsuariosExcel(ActionEvent e) {
         String[] headers = {"ID", "Usuario", "Email", "Tipo", "Fecha Registro"};
         Export.exportToExcel(
@@ -276,5 +276,11 @@ public class AdminUserController implements Initializable {
                     u.getCreatedAt()
                 }
         );
+    }
+
+    private User usuarioActual;
+
+    public void setUsuarioActual(User usuarioActual) {
+        this.usuarioActual = usuarioActual;
     }
 }

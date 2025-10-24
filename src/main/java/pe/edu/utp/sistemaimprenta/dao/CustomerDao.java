@@ -1,6 +1,4 @@
-
 package pe.edu.utp.sistemaimprenta.dao;
-
 
 import pe.edu.utp.sistemaimprenta.model.Customer;
 import java.sql.*;
@@ -9,6 +7,9 @@ import java.util.List;
 import pe.edu.utp.sistemaimprenta.db.DBConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pe.edu.utp.sistemaimprenta.model.AuditType;
+import pe.edu.utp.sistemaimprenta.model.User;
+import pe.edu.utp.sistemaimprenta.util.AuditUtil;
 public class CustomerDao implements CrudDao<Customer> {
     
     private static final Logger log = LoggerFactory.getLogger(CustomerDao.class);
@@ -18,7 +19,7 @@ public class CustomerDao implements CrudDao<Customer> {
     }
     
     @Override
-    public boolean save(Customer c) {
+    public boolean save(Customer c, Customer c2) {
         String sql = "INSERT INTO Cliente (dni, apellidos, nombres, telefono, correo_electronico, direccion) " +
                      "VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
@@ -28,6 +29,11 @@ public class CustomerDao implements CrudDao<Customer> {
             ps.setString(4, c.getTelephoneNumber());
             ps.setString(5, c.getEmail());
             ps.setString(6, c.getAddress());
+            
+            User prueba1 = new User();
+            prueba1.setId(1);
+            prueba1.setUsername("Javier Boulanger");
+            AuditUtil.registrar(prueba1, "Creó nuevo cliente", AuditType.CREACION);
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             log.error("No se pudo guardar cliente en la base de datos", e);
@@ -61,10 +67,14 @@ public class CustomerDao implements CrudDao<Customer> {
     }
 
     @Override
-    public boolean delete(int id) {
+    public boolean delete(int id,Customer c) {
         String sql = "DELETE FROM Cliente WHERE id_cliente=?";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
             ps.setInt(1, id);
+            User prueba1 = new User();
+            prueba1.setId(1);
+            prueba1.setUsername("Javier Boulanger");
+            AuditUtil.registrar(prueba1, "Eliminó cliente CLI-"+ id, AuditType.ELIMINACION);
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             log.error("Error al eliminar cliente por ID", e);
@@ -73,7 +83,7 @@ public class CustomerDao implements CrudDao<Customer> {
     }
 
     @Override
-    public boolean uptade(Customer c) {  
+    public boolean uptade(Customer c, Customer c2) {  
         String sql = "UPDATE Cliente SET dni=?, apellidos=?, nombres=?, telefono=?, correo_electronico=?, direccion=? " +
                      "WHERE id_cliente=?";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
@@ -84,6 +94,10 @@ public class CustomerDao implements CrudDao<Customer> {
             ps.setString(5, c.getEmail());
             ps.setString(6, c.getAddress());
             ps.setInt(7, c.getId());
+            User prueba1 = new User();
+            prueba1.setId(1);
+            prueba1.setUsername("Javier Boulanger");
+            AuditUtil.registrar(prueba1, "Actualizó cliente", AuditType.MODIFICACION);
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             log.error("Error al actualizar cliente ", e);
