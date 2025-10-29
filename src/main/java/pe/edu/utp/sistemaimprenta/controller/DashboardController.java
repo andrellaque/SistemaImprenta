@@ -19,6 +19,7 @@ import pe.edu.utp.sistemaimprenta.model.User;
 import pe.edu.utp.sistemaimprenta.model.UserType;
 import pe.edu.utp.sistemaimprenta.util.AuditUtil;
 import pe.edu.utp.sistemaimprenta.util.FxmlPath;
+import pe.edu.utp.sistemaimprenta.util.UserAware;
 import pe.edu.utp.sistemaimprenta.util.ViewLoader;
 import pe.edu.utp.sistemaimprenta.util.ViewLoader.SidebarItemResult;
 
@@ -79,8 +80,8 @@ public class DashboardController implements Initializable {
         createSidebarItem("Clientes", "/images/icons/c.png", FxmlPath.CUSTOMER_PANE.getPath());
         createSidebarItem("Personal", "/images/icons/customers2.png", FxmlPath.USER_PANE.getPath());
         createSidebarItem("Auditoria", "/images/icons/audit.png", FxmlPath.AUDIT_PANE.getPath());
-        createSidebarItem("Produccion", "", "/views/Peliculas.fxml");
-        createSidebarItem("Reportes", "", "/views/Peliculas.fxml");
+        createSidebarItem("Productos", "/images/icons/product.png", FxmlPath.PRODUCT_PANE.getPath());
+        createSidebarItem("Pedidos", "/images/icons/order.png", FxmlPath.ORDER_PANE.getPath());
         createSidebarItem("Configuracion", "", "/views/Peliculas.fxml");
     }
 
@@ -125,8 +126,8 @@ public class DashboardController implements Initializable {
             selectedItem = sidebarItem;
             Object controller = ViewLoader.changeMainPanelGetController(mainPanel, fxmlToLoad);
 
-            if (controller instanceof AdminUserController adminController) {
-                adminController.setUsuarioActual(user);
+            if (controller instanceof UserAware userAwareController) {
+                userAwareController.setUsuarioActual(user);
             }
         });
 

@@ -16,13 +16,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import pe.edu.utp.sistemaimprenta.dao.CustomerDao;
 import pe.edu.utp.sistemaimprenta.model.Customer;
+import pe.edu.utp.sistemaimprenta.model.User;
 import pe.edu.utp.sistemaimprenta.util.Export;
 import pe.edu.utp.sistemaimprenta.util.Message;
 import pe.edu.utp.sistemaimprenta.util.Notification;
 import pe.edu.utp.sistemaimprenta.util.NotificationType;
+import pe.edu.utp.sistemaimprenta.util.UserAware;
 import pe.edu.utp.sistemaimprenta.util.Validator;
 
-public class CustomerController implements Initializable {
+public class CustomerController implements Initializable, UserAware {
 
     @FXML
     private Button btnActualizar;
@@ -188,7 +190,7 @@ public class CustomerController implements Initializable {
 
         Customer c = new Customer();
         llenarDatosCliente(c);
-        //customerDao.save(c);
+        customerDao.save(c,usuarioActual);
         refrescarTabla();
         limpiarCampos();
     }
@@ -208,7 +210,7 @@ public class CustomerController implements Initializable {
         }
 
         llenarDatosCliente(seleccionado);
-        //customerDao.uptade(seleccionado);
+        customerDao.update(seleccionado,usuarioActual);
         Notification.showNotification("REGISTRO CLIENTE", "Con éxito", 4, NotificationType.SUCCESS);
         refrescarTabla();
         limpiarCampos();
@@ -217,7 +219,7 @@ public class CustomerController implements Initializable {
     private void eliminar() {
         Customer seleccionado = tablaDatos.getSelectionModel().getSelectedItem();
         if (seleccionado != null) {
-           // customerDao.delete(seleccionado.getId());
+            customerDao.delete(seleccionado.getId(),usuarioActual);
             refrescarTabla();
             limpiarCampos();
 
@@ -311,5 +313,11 @@ public class CustomerController implements Initializable {
                 }
         );
     }
+    
+    private User usuarioActual;
 
+    @Override
+    public void setUsuarioActual(User usuarioActual) {
+        this.usuarioActual = usuarioActual;
+    }
 }

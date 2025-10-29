@@ -19,7 +19,7 @@ public class CustomerDao implements CrudDao<Customer> {
     }
     
     @Override
-    public boolean save(Customer c, Customer c2) {
+    public boolean save(Customer c, User u) {
         String sql = "INSERT INTO Cliente (dni, apellidos, nombres, telefono, correo_electronico, direccion) " +
                      "VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
@@ -30,10 +30,7 @@ public class CustomerDao implements CrudDao<Customer> {
             ps.setString(5, c.getEmail());
             ps.setString(6, c.getAddress());
             
-            User prueba1 = new User();
-            prueba1.setId(1);
-            prueba1.setUsername("Javier Boulanger");
-            AuditUtil.registrar(prueba1, "Creó nuevo cliente", AuditType.CREACION);
+            AuditUtil.registrar(u, "Creó nuevo cliente: " + c.getName() + " " +c.getLastName(), AuditType.CREACION);
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             log.error("No se pudo guardar cliente en la base de datos", e);
@@ -67,14 +64,11 @@ public class CustomerDao implements CrudDao<Customer> {
     }
 
     @Override
-    public boolean delete(int id,Customer c) {
+    public boolean delete(int id,User u) {
         String sql = "DELETE FROM Cliente WHERE id_cliente=?";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
             ps.setInt(1, id);
-            User prueba1 = new User();
-            prueba1.setId(1);
-            prueba1.setUsername("Javier Boulanger");
-            AuditUtil.registrar(prueba1, "Eliminó cliente CLI-"+ id, AuditType.ELIMINACION);
+            AuditUtil.registrar(u, "Eliminó cliente CLI-"+ id, AuditType.ELIMINACION);
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             log.error("Error al eliminar cliente por ID", e);
@@ -83,7 +77,7 @@ public class CustomerDao implements CrudDao<Customer> {
     }
 
     @Override
-    public boolean uptade(Customer c, Customer c2) {  
+    public boolean update(Customer c, User u) {  
         String sql = "UPDATE Cliente SET dni=?, apellidos=?, nombres=?, telefono=?, correo_electronico=?, direccion=? " +
                      "WHERE id_cliente=?";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
@@ -94,10 +88,7 @@ public class CustomerDao implements CrudDao<Customer> {
             ps.setString(5, c.getEmail());
             ps.setString(6, c.getAddress());
             ps.setInt(7, c.getId());
-            User prueba1 = new User();
-            prueba1.setId(1);
-            prueba1.setUsername("Javier Boulanger");
-            AuditUtil.registrar(prueba1, "Actualizó cliente", AuditType.MODIFICACION);
+            AuditUtil.registrar(u, "Actualizó el usuario CLI-"+c.getId(), AuditType.MODIFICACION);
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             log.error("Error al actualizar cliente ", e);

@@ -189,3 +189,10 @@
 .logout { -fx-background-color: #FFF5E0; }
 .logout-label { -fx-background-color: #F5B041; -fx-text-fill: #5C2E00; }
 
+.modal-panel {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 15, 0.2, 0, 4);
+}

@@ -23,9 +23,10 @@ import pe.edu.utp.sistemaimprenta.util.Export;
 import pe.edu.utp.sistemaimprenta.util.Message;
 import pe.edu.utp.sistemaimprenta.util.Notification;
 import pe.edu.utp.sistemaimprenta.util.NotificationType;
+import pe.edu.utp.sistemaimprenta.util.UserAware;
 import pe.edu.utp.sistemaimprenta.util.Validator;
 
-public class AdminUserController implements Initializable {
+public class AdminUserController implements Initializable, UserAware {
 
     @FXML
     private Button btnActualizar;
@@ -169,7 +170,7 @@ public class AdminUserController implements Initializable {
         }
 
         llenarDatosUsuario(seleccionado);
-        userDao.uptade(seleccionado,usuarioActual);
+        userDao.update(seleccionado,usuarioActual);
         Notification.showNotification("USUARIO", "Actualizado con éxito", 4, NotificationType.SUCCESS);
         refrescarTabla();
         limpiarCampos();
@@ -280,6 +281,7 @@ public class AdminUserController implements Initializable {
 
     private User usuarioActual;
 
+    @Override
     public void setUsuarioActual(User usuarioActual) {
         this.usuarioActual = usuarioActual;
     }

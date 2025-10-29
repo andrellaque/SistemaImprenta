@@ -173,7 +173,7 @@ public class UserDao implements CrudDao<User> {
     }
 
     @Override
-    public boolean uptade(User entity, User u) {
+    public boolean update(User entity, User u) {
         String sql = "UPDATE Usuario SET nombre=?, hash_contrasena=?, correo_electronico=?, id_tipo_usuario=? WHERE id_usuario=?";
       
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {

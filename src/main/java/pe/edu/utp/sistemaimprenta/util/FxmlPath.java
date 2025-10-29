@@ -9,7 +9,9 @@ public enum FxmlPath {
     CUSTOMER_PANE("/views/CustomersPane.fxml"),
     USER_PANE("/views/UsersPane.fxml"),
     AUDIT_PANE("/views/AuditPane.fxml"),
-    AUDIT_ITEM("/views/AuditItem.fxml");
+    AUDIT_ITEM("/views/AuditItem.fxml"),
+    PRODUCT_PANE("/views/ProductPane.fxml"),
+    ORDER_PANE("/views/OrderPane.fxml");
     
     private final String path;
 
