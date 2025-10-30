@@ -64,13 +64,13 @@ public class RegisterController implements Initializable {
 
         UserType defaultType = UserType.ADMINISTRADOR;
         
-       /* if (userDao.existsUser(username)) {
+        if (userDao.existsUser(username)) {
             Message.showMessage(lblError, "Nombre de usuario en uso", "red");
             Notification.showNotification("REGISTER", "ERROR!", 4, NotificationType.ERROR);
         } else if (userDao.existsEmail(email)) {
             Message.showMessage(lblError, "Correo electronico en uso", "red");
             Notification.showNotification("REGISTER", "ERROR!", 4, NotificationType.ERROR);
-        } else if (userDao.save(new User(username, EncryptPassword.encrypt(password),email , defaultType))) {
+        } else if (userDao.save(new User(username, EncryptPassword.encrypt(password),email , defaultType),null)) {
             Message.showMessage(lblError, "Registro exitoso", "green");
             Notification.showNotification("Register", "Registro exitoso", 4, NotificationType.SUCCESS);
             clear();
@@ -78,7 +78,7 @@ public class RegisterController implements Initializable {
             Message.showMessage(lblError, "Error al registrar usuario", "red");
             Notification.showNotification("REGISTER", "ERROR!", 4, NotificationType.ERROR);
         }
-        */
+        
     }
     
     private void clear() {

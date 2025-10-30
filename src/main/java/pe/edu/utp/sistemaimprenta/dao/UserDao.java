@@ -118,8 +118,9 @@ public class UserDao implements CrudDao<User> {
             stmt.setString(3, entity.getEmail());
             stmt.setInt(4, entity.getType().getId());
             stmt.executeUpdate();
-           
-            AuditUtil.registrar(u, "Creó nuevo usuario: "+ entity.getUsername(), AuditType.CREACION);
+            
+            if (u!=null)
+                AuditUtil.registrar(u, "Creó nuevo usuario: "+ entity.getUsername(), AuditType.CREACION);
 
             return true;
         } catch (SQLException ex) {

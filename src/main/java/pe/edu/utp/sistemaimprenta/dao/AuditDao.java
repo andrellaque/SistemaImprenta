@@ -29,10 +29,10 @@ public class AuditDao {
             ps.setTimestamp(3, Timestamp.valueOf(item.date()));
             ps.setString(4, item.type().name());
             ps.executeUpdate();
-            log.info("Auditoría registrada ");
+            log.info("Auditoría registrada ["+ item.description()+"]");
 
         } catch (SQLException e) {
-            log.error("Error al registrar auditoría["+ item.description()+"]", e);
+            log.error("Error al registrar auditoría", e);
         }
     }
 
