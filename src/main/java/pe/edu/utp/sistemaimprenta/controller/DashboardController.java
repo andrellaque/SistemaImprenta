@@ -97,11 +97,11 @@ public class DashboardController implements Initializable {
             labelTypeUser.setText(getUserTypeCentralized());
 
             switch (user.getType()) {
-                case UserType.VENDEDOR ->
+                case VENDEDOR ->
                     crearItemsVendedor();
-                case UserType.ADMINISTRADOR ->
+                case ADMINISTRADOR ->
                     crearItemsAdministrador();
-                case UserType.OPERARIO_PRODUCCION ->
+                case OPERARIO_PRODUCCION ->
                     crearItemsOperario();
             }
         }

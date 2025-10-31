@@ -63,7 +63,7 @@
 
         <Button fx:id="btnNuevo" layoutX="786.0" layoutY="37.0" prefHeight="32.0" prefWidth="154.0" styleClass="button" text="Nuevo Producto" />
 
-        <Pane fx:id="paneNuevoProducto" layoutX="0.0" layoutY="0.0" prefHeight="560.0" prefWidth="1010.0" style="-fx-background-color: rgba(0,0,0,0.5);" visible="true">
+        <Pane fx:id="paneNuevoProducto" layoutX="0.0" layoutY="0.0" prefHeight="560.0" prefWidth="1010.0" style="-fx-background-color: rgba(0,0,0,0.5);" visible="false">
 
             <Pane layoutX="150.0" layoutY="60.0" prefHeight="440.0" prefWidth="710.0" styleClass="modal-panel">
                 <children>
